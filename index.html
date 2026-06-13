@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrossFit Gorey | Member Programs</title>
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #ffffff;
+    --accent: #ffffff;
+    --gray-100: #f2f2f2;
+    --gray-200: #e0e0e0;
+    --gray-400: #999999;
+    --gray-600: #555555;
+    --gray-800: #222222;
+    --font-display: 'Oswald', sans-serif;
+    --font-body: 'Inter', sans-serif;
+  }
+  @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--font-body); background: var(--gray-100); color: var(--gray-800); line-height: 1.6; }
+
+  /* NAV */
+  nav {
+    background: var(--black);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid #222;
+  }
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+  .nav-logo-svg {
+    height: 44px;
+    width: auto;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--gray-400);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--white); }
+  .nav-badge {
+    background: var(--white);
+    color: var(--black);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 1px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .hamburger { display: none; cursor: pointer; background: none; border: none; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); margin: 5px 0; }
+
+  /* HERO */
+  .hero {
+    background: var(--black);
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    border-bottom: 3px solid var(--white);
+  }
+  .hero-logo {
+    display: block;
+    margin: 0 auto 2rem;
+    height: 110px;
+    width: auto;
+  }
+  .hero-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 1rem;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em { font-style: normal; color: var(--gray-400); }
+  .hero p { font-size: 1rem; color: var(--gray-400); max-width: 520px; margin: 0 auto 2rem; line-height: 1.7; }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--white);
+    color: var(--black);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.8rem 2rem;
+    border: 2px solid var(--white);
+    border-radius: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn-primary:hover { background: transparent; color: var(--white); }
+  .btn-secondary {
+    background: transparent;
+    color: var(--white);
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.8rem 2rem;
+    border: 2px solid #444;
+    border-radius: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--white); }
+
+  /* SECTION */
+  .section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    margin-bottom: 0.4rem;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: 700;
+    color: var(--black);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+  }
+  .section-sub { font-size: 0.92rem; color: var(--gray-600); max-width: 500px; margin-bottom: 2.5rem; }
+  hr.divider { border: none; border-top: 1px solid var(--gray-200); }
+
+  /* CARDS */
+  .programs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+  .card {
+    background: var(--white);
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,0.1); }
+  .card-header {
+    padding: 1.2rem 1.5rem 1rem;
+    border-bottom: 3px solid var(--black);
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .card-icon {
+    width: 40px; height: 40px; border-radius: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; flex-shrink: 0;
+    background: var(--gray-100);
+  }
+  .card-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray-400); margin-bottom: 0.2rem; }
+  .card-title { font-family: var(--font-display); font-size: 1.12rem; font-weight: 700; color: var(--black); text-transform: uppercase; letter-spacing: 0.05em; line-height: 1.2; }
+  .card-body { padding: 1.2rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 0.9rem; }
+  .card-desc { font-size: 0.87rem; color: var(--gray-600); line-height: 1.65; }
+  .card-sessions { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; }
+  .card-sessions li { font-size: 0.82rem; color: var(--gray-600); display: flex; align-items: center; gap: 0.5rem; }
+  .card-sessions li::before { content: ''; display: inline-block; width: 4px; height: 4px; background: var(--black); flex-shrink: 0; }
+  .card-footer {
+    padding: 0.9rem 1.5rem;
+    border-top: 1px solid var(--gray-100);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .level-badge { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 10px; border-radius: 1px; }
+  .level-all { background: var(--gray-100); color: var(--gray-800); border: 1px solid var(--gray-200); }
+  .level-inter { background: var(--black); color: var(--white); }
+  .level-adv { background: var(--gray-800); color: var(--white); }
+  .card-cta { font-size: 0.78rem; font-weight: 700; color: var(--black); letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; cursor: pointer; background: none; border: none; padding: 0; transition: opacity 0.2s; }
+  .card-cta:hover { opacity: 0.6; }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--white); border-radius: 2px; max-width: 680px; width: 100%; max-height: 90vh; overflow-y: auto; border-top: 4px solid var(--black); }
+  .modal-top { padding: 1.5rem 2rem 1rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--gray-200); }
+  .modal-tag { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gray-600); margin-bottom: 0.3rem; }
+  .modal-title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--black); }
+  .modal-close { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray-400); padding: 0; line-height: 1; }
+  .modal-close:hover { color: var(--black); }
+  .modal-body { padding: 1.5rem 2rem 2rem; }
+  .modal-body h3 { font-family: var(--font-display); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--black); margin: 1.5rem 0 0.75rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--gray-200); }
+  .modal-body h3:first-child { margin-top: 0; }
+  .modal-body p { font-size: 0.9rem; color: var(--gray-600); margin-bottom: 0.75rem; line-height: 1.7; }
+  .week-block { background: var(--gray-100); border-radius: 2px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; border-left: 3px solid var(--black); }
+  .week-block strong { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--black); display: block; margin-bottom: 0.4rem; }
+  .week-block p { margin: 0; font-size: 0.85rem; }
+  .session-row { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0; border-bottom: 1px solid var(--gray-100); font-size: 0.88rem; }
+  .session-row:last-child { border-bottom: none; }
+  .session-day { font-weight: 700; color: var(--black); min-width: 75px; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .session-desc { color: var(--gray-600); line-height: 1.55; }
+  .warning-box { background: #f9f9f9; border: 1px solid var(--gray-200); border-left: 3px solid var(--gray-800); border-radius: 2px; padding: 0.75rem 1rem; font-size: 0.85rem; color: var(--gray-600); margin-top: 1rem; }
+
+  /* INJURY BANNER */
+  .injury-banner { background: var(--black); border-top: 3px solid var(--white); padding: 2.5rem 2rem; text-align: center; }
+  .injury-banner h2 { font-family: var(--font-display); font-size: 1.5rem; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+  .injury-banner p { font-size: 0.88rem; color: var(--gray-400); max-width: 560px; margin: 0 auto; }
+
+  /* FOOTER */
+  footer { background: var(--black); padding: 3rem 2rem 2rem; color: var(--gray-400); }
+  .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 2rem; }
+  .footer-logo { height: 50px; width: auto; margin-bottom: 1rem; display: block; }
+  .footer-desc { font-size: 0.82rem; line-height: 1.7; }
+  footer h4 { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--white); margin-bottom: 1rem; }
+  footer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  footer ul li a { font-size: 0.82rem; color: var(--gray-400); text-decoration: none; transition: color 0.2s; }
+  footer ul li a:hover { color: var(--white); }
+  .footer-bottom { max-width: 1100px; margin: 0 auto; border-top: 1px solid #1c1c1c; padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.76rem; }
+
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .nav-links.open { display: flex; flex-direction: column; position: absolute; top: 64px; left: 0; right: 0; background: var(--black); padding: 1.5rem 2rem; gap: 1rem; }
+    .hamburger { display: block; }
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+    .programs-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <!-- CrossFit Gorey SVG Logo (inline, white on black) -->
+    <svg class="nav-logo-svg" viewBox="0 0 180 52" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CrossFit Gorey">
+      <text x="0" y="32" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="28" fill="white" textLength="152" lengthAdjust="spacingAndGlyphs">CrossFit</text>
+      <text x="156" y="18" font-family="Arial,sans-serif" font-size="11" fill="white">®</text>
+      <rect x="0" y="37" width="152" height="15" fill="white"/>
+      <text x="76" y="49" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="10" fill="black" text-anchor="middle" letter-spacing="3">GOREY</text>
+    </svg>
+  </a>
+  <ul class="nav-links" id="navlinks">
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#running">Running</a></li>
+    <li><a href="#injury">Injury</a></li>
+    <li><a href="#" class="nav-badge">Member Login</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <!-- Hero logo: larger version of the CrossFit Gorey mark -->
+  <svg class="hero-logo" viewBox="0 0 360 115" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CrossFit Gorey">
+    <text x="0" y="72" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="72" fill="white" textLength="310" lengthAdjust="spacingAndGlyphs">CrossFit</text>
+    <text x="316" y="46" font-family="Arial,sans-serif" font-size="22" fill="white">®</text>
+    <rect x="0" y="82" width="310" height="32" fill="white"/>
+    <text x="155" y="105" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="20" fill="black" text-anchor="middle" letter-spacing="8">GOREY</text>
+  </svg>
+  <p class="hero-eyebrow">Members Only · Add-On Training Programs</p>
+  <h1>Train Beyond<br>the <em>Class Floor</em></h1>
+  <p>Specialist programs to accelerate your skills, strength, and endurance — built to run alongside your regular CrossFit Gorey class schedule.</p>
+  <div class="hero-actions">
+    <a href="#programs" class="btn-primary">Explore Programs</a>
+    <a href="#" class="btn-secondary">My Dashboard</a>
+  </div>
+</section>
+
+<!-- STRENGTH & SKILLS -->
+<section id="programs" class="section">
+  <p class="section-label">Strength & Skills</p>
+  <h2 class="section-title">Specialist Programs</h2>
+  <p class="section-sub">Choose a program that targets your goal. Each is designed to complement — not replace — your CrossFit Gorey class training.</p>
+  <div class="programs-grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🏋️</div>
+        <div>
+          <p class="card-tag">CrossFit · 8 Weeks</p>
+          <h3 class="card-title">Skills Accelerator</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Master the gymnastics and barbell skills that separate good athletes from great ones. Muscle-ups, handstands, double-unders, and Olympic technique broken into achievable progressions.</p>
+        <ul class="card-sessions">
+          <li>Gymnastics progressions (pull-ups → muscle-up)</li>
+          <li>Handstand & HSPU development</li>
+          <li>Double-under skill ladders</li>
+          <li>Olympic lifting technique work</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <span class="level-badge level-inter">Intermediate</span>
+        <button class="card-cta" onclick="openModal('cf-skills')">View Program →</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">⚡</div>
+        <div>
+          <p class="card-tag">Weightlifting · 12 Weeks</p>
+          <h3 class="card-title">Olympic Lifting</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">A structured 3-day programme focused on improving your Snatch and Clean & Jerk. Combines technique sessions with strength accessories over 12 weeks with a full peaking phase.</p>
+        <ul class="card-sessions">
+          <li>3 lifting sessions per week (45–60 min)</li>
+          <li>Snatch + C&J technique + heavy singles</li>
+          <li>Pulling and squatting accessories</li>
+          <li>Peaking & PR attempts in Phase 3</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <span class="level-badge level-inter">Intermediate</span>
+        <button class="card-cta" onclick="openModal('weightlifting')">View Program →</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🔩</div>
+        <div>
+          <p class="card-tag">Powerlifting · 12 Weeks</p>
+          <h3 class="card-title">Strength Base</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Build a bigger squat, bench, and deadlift with this 3-day powerlifting programme. Uses RPE-based loading to systematically drive up your total over 3 months.</p>
+        <ul class="card-sessions">
+          <li>Squat, Bench, Deadlift 3× per week</li>
+          <li>Accessory work for weak-point development</li>
+          <li>RPE-based loading (no 1RM testing)</li>
+          <li>Optional competition prep block</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <span class="level-badge level-all">All Levels</span>
+        <button class="card-cta" onclick="openModal('powerlifting')">View Program →</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- RUNNING -->
+<section id="running" class="section">
+  <p class="section-label">Endurance</p>
+  <h2 class="section-title">Running Programs</h2>
+  <p class="section-sub">Structured plans from 5K to Half Marathon. Run days slot around your WOD days so volume is managed carefully.</p>
+  <div class="programs-grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🏃</div>
+        <div>
+          <p class="card-tag">Running · 8 Weeks</p>
+          <h3 class="card-title">5K Program</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Go from inconsistent runner to confident 5K finisher. Builds aerobic base with 3 runs per week including one speed session per fortnight.</p>
+        <ul class="card-sessions">
+          <li>2–3 runs per week (20–40 min)</li>
+          <li>Easy base runs + one tempo/week</li>
+          <li>Race-day strategy session in week 7</li>
+          <li>Mobility & recovery protocols included</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <span class="level-badge level-all">All Levels</span>
+        <button class="card-cta" onclick="openModal('5k')">View Program →</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🏃</div>
+        <div>
+          <p class="card-tag">Running · 10 Weeks</p>
+          <h3 class="card-title">10K Program</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">Bridge the gap to double digits. Adds a long run, structured intervals, and a race-pace session each week to build speed and endurance simultaneously.</p>
+        <ul class="card-sessions">
+          <li>3 runs per week (up to 60 min long run)</li>
+          <li>Interval sessions (800m repeats)</li>
+          <li>Threshold runs for lactate development</li>
+          <li>10K race-pace tune-up in week 9</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <span class="level-badge level-inter">Intermediate</span>
+        <button class="card-cta" onclick="openModal('10k')">View Program →</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🏅</div>
+        <div>
+          <p class="card-tag">Running · 14 Weeks</p>
+          <h3 class="card-title">Half Marathon</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">A smart 14-week build for athletes combining endurance training with CrossFit volume. Long runs peak at 19–20km with careful loading to prevent injury.</p>
+        <ul class="card-sessions">
+          <li>4 runs per week (1 long, 2 medium, 1 speed)</li>
+          <li>Long runs peak at 19–20km (wk 11–12)</li>
+          <li>Taper weeks 13–14 for race freshness</li>
+          <li>Strength maintenance sessions included</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <span class="level-badge level-adv">Advanced</span>
+        <button class="card-cta" onclick="openModal('halfmarathon')">View Program →</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- INJURY -->
+<div class="injury-banner" id="injury">
+  <h2>Injury Management Programs</h2>
+  <p>Designed by coaches with physiotherapy input. These programs keep you moving and rebuilding safely — while your class training continues wherever possible.</p>
+</div>
+
+<section class="section">
+  <div class="programs-grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">💪</div>
+        <div>
+          <p class="card-tag">Injury Management · Ongoing</p>
+          <h3 class="card-title">Upper Body Rehab</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">For shoulder, elbow, and wrist issues. Covers rotator cuff strains, bicep tendinopathy, and wrist impingement. Focuses on restoring movement before loading.</p>
+        <ul class="card-sessions">
+          <li>Phase 1: Pain-free movement restoration</li>
+          <li>Phase 2: Stability & motor control</li>
+          <li>Phase 3: Strength & return to loading</li>
+          <li>Replaces upper body WOD elements safely</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <span class="level-badge level-all">All Levels</span>
+        <button class="card-cta" onclick="openModal('upper-injury')">View Program →</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">🦵</div>
+        <div>
+          <p class="card-tag">Injury Management · Ongoing</p>
+          <h3 class="card-title">Lower Body Rehab</h3>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-desc">For knee, hip, ankle, and lower back complaints. Addresses patellar tendinopathy, hip impingement, and plantar fasciitis with progressive load management.</p>
+        <ul class="card-sessions">
+          <li>Phase 1: Unloaded mobility & activation</li>
+          <li>Phase 2: Single-leg stability work</li>
+          <li>Phase 3: Return to squatting & running</li>
+          <li>Coach check-in prompts every 2 weeks</li>
+        </ul>
+      </div>
+      <div class="card-footer">
+        <span class="level-badge level-all">All Levels</span>
+        <button class="card-cta" onclick="openModal('lower-injury')">View Program →</button>
+      </div>
+    </div>
+
+  </div>
+  <div class="warning-box" style="margin-top:1.5rem;">
+    ⚠️ <strong>Medical disclaimer:</strong> These programs are general in nature and are not a substitute for professional physiotherapy or medical advice. Always consult a qualified health professional before beginning a rehabilitation programme. Inform your CrossFit Gorey coach of any injury before class.
+  </div>
+</section>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal-box">
+    <div class="modal-top">
+      <div>
+        <p class="modal-tag" id="modal-tag"></p>
+        <h2 class="modal-title" id="modal-title"></h2>
+      </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-content"></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <svg class="footer-logo" viewBox="0 0 180 52" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="CrossFit Gorey">
+        <text x="0" y="32" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="28" fill="white" textLength="152" lengthAdjust="spacingAndGlyphs">CrossFit</text>
+        <text x="156" y="18" font-family="Arial,sans-serif" font-size="11" fill="white">®</text>
+        <rect x="0" y="37" width="152" height="15" fill="white"/>
+        <text x="76" y="49" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="10" fill="black" text-anchor="middle" letter-spacing="3">GOREY</text>
+      </svg>
+      <p class="footer-desc">Add-on training programs for CrossFit Gorey members. Designed to work around your class schedule, not against it.</p>
+    </div>
+    <div>
+      <h4>Programs</h4>
+      <ul>
+        <li><a href="#programs">Skills Accelerator</a></li>
+        <li><a href="#programs">Olympic Lifting</a></li>
+        <li><a href="#programs">Strength Base</a></li>
+        <li><a href="#running">Running Plans</a></li>
+        <li><a href="#injury">Injury Rehab</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Members</h4>
+      <ul>
+        <li><a href="#">Login</a></li>
+        <li><a href="#">My Programs</a></li>
+        <li><a href="#">Book a Coach</a></li>
+        <li><a href="#">FAQ</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 CrossFit Gorey. Members only — do not share.</span>
+    <span>Gorey, Co. Wexford</span>
+  </div>
+</footer>
+
+<script>
+const programs = {
+  'cf-skills': {
+    tag: 'CrossFit · 8 Weeks · 3 Sessions/Week',
+    title: 'Skills Accelerator Program',
+    content: `
+      <h3>What this program does</h3>
+      <p>This program targets the gymnastics and barbell skills most athletes struggle with in class. Each session runs 30–45 minutes and is designed to be done before or after a class, or on an active recovery day.</p>
+      <h3>Weekly structure</h3>
+      <div class="session-row"><span class="session-day">Monday</span><span class="session-desc">Gymnastics — kipping/butterfly pull-up progressions, bar & ring muscle-up skill work (30 min)</span></div>
+      <div class="session-row"><span class="session-day">Wednesday</span><span class="session-desc">Handstand development — wall walks, kick-ups, freestanding holds, HSPU negatives (30 min)</span></div>
+      <div class="session-row"><span class="session-day">Friday</span><span class="session-desc">Jump rope + Olympic technique — double-under ladders, snatch/clean pull drills at light load (40 min)</span></div>
+      <h3>Phase breakdown</h3>
+      <div class="week-block"><strong>Weeks 1–2 — Foundation</strong><p>Establish baseline positions. Pull-up volume, hollow body work, single-under consistency. Snatch with PVC and empty bar.</p></div>
+      <div class="week-block"><strong>Weeks 3–4 — Progression</strong><p>Kipping mechanics, first bar muscle-up attempts, wall-facing handstand holds. Light barbell cycling.</p></div>
+      <div class="week-block"><strong>Weeks 5–6 — Consolidation</strong><p>Ring muscle-up progressions, 30-second freestanding holds, HSPU negatives. 50% 1RM snatch cycling.</p></div>
+      <div class="week-block"><strong>Weeks 7–8 — Application</strong><p>Mini-WODs using skills under fatigue. Aim for full muscle-ups, consistent double-unders, and confident handstand walks.</p></div>`
+  },
+  'weightlifting': {
+    tag: 'Olympic Weightlifting · 12 Weeks · 3 Days/Week',
+    title: 'Olympic Lifting Program',
+    content: `
+      <h3>Overview</h3>
+      <p>A 12-week programme to develop your Snatch and Clean & Jerk. Each session is 45–60 minutes. Assumes you can already perform both lifts with safe technique. Sessions are designed for Tue/Thu/Sat but can flex to your schedule.</p>
+      <h3>Weekly session structure</h3>
+      <div class="session-row"><span class="session-day">Session A</span><span class="session-desc">Snatch focus — technique work, heavy singles, snatch pulls, overhead squat strength</span></div>
+      <div class="session-row"><span class="session-day">Session B</span><span class="session-desc">Clean & Jerk focus — technique work, heavy singles, front squat, push press accessories</span></div>
+      <div class="session-row"><span class="session-day">Session C</span><span class="session-desc">Back squat + both lifts at moderate percentage — volume and positional reinforcement</span></div>
+      <h3>12-week phase plan</h3>
+      <div class="week-block"><strong>Phase 1 — Weeks 1–4: Technique & Volume</strong><p>Lifts at 70–80% 1RM. High rep positional drills. Back squat 3×5 building weekly.</p></div>
+      <div class="week-block"><strong>Phase 2 — Weeks 5–8: Strength & Intensity</strong><p>Lifts build to 85–92%. Heavy singles appear from week 6. Front squat intensity increases.</p></div>
+      <div class="week-block"><strong>Phase 3 — Weeks 9–12: Peaking</strong><p>Lifts at 90–100%+. PR attempts in weeks 10 and 12. Full deload in week 11.</p></div>`
+  },
+  'powerlifting': {
+    tag: 'Powerlifting · 12 Weeks · 3 Days/Week',
+    title: 'Strength Base Program',
+    content: `
+      <h3>Overview</h3>
+      <p>A 3-day full-body programme built around squat, bench, and deadlift. Uses RPE (Rate of Perceived Exertion) rather than set percentages so it auto-regulates to how you feel on the day.</p>
+      <h3>Weekly structure (Mon / Wed / Fri)</h3>
+      <div class="session-row"><span class="session-day">Monday</span><span class="session-desc">Squat heavy + Bench moderate + Deadlift accessories (60–70 min)</span></div>
+      <div class="session-row"><span class="session-day">Wednesday</span><span class="session-desc">Bench heavy + Deadlift moderate + Squat accessories (50–60 min)</span></div>
+      <div class="session-row"><span class="session-day">Friday</span><span class="session-desc">Deadlift heavy + Squat moderate + Bench accessories (60–70 min)</span></div>
+      <h3>Phase breakdown</h3>
+      <div class="week-block"><strong>Weeks 1–4 — Accumulation</strong><p>Higher volume, moderate intensity (RPE 7–8). 4×5 on main lifts. Building work capacity and reinforcing technique.</p></div>
+      <div class="week-block"><strong>Weeks 5–8 — Intensification</strong><p>Volume reduces, intensity increases (RPE 8–9). 4×3 building to heavy triples. Accessory volume drops 30%.</p></div>
+      <div class="week-block"><strong>Weeks 9–12 — Peaking</strong><p>Low volume, high intensity (RPE 9–9.5). Heavy singles in weeks 10 and 12. Week 11 full deload. Optional mock meet.</p></div>`
+  },
+  '5k': {
+    tag: 'Running · 8 Weeks · 2–3 Runs/Week',
+    title: '5K Training Program',
+    content: `
+      <h3>Who this is for</h3>
+      <p>Athletes who can run 20+ minutes without stopping and want to run a 5K at a strong, consistent pace. Easy runs slot on non-WOD days; tempo runs on light class days.</p>
+      <h3>Weekly structure</h3>
+      <div class="session-row"><span class="session-day">Run 1</span><span class="session-desc">Easy aerobic run — 20–35 min at conversational pace. Builds base and promotes active recovery.</span></div>
+      <div class="session-row"><span class="session-day">Run 2</span><span class="session-desc">Tempo run — 15–25 min at comfortably hard effort (short phrases only).</span></div>
+      <div class="session-row"><span class="session-day">Run 3 (opt.)</span><span class="session-desc">Easy 20 min recovery jog. Skip if class volume is high that week.</span></div>
+      <h3>8-week plan overview</h3>
+      <div class="week-block"><strong>Weeks 1–2 — Base</strong><p>Easy runs only. Build frequency and get legs used to running volume alongside CrossFit.</p></div>
+      <div class="week-block"><strong>Weeks 3–5 — Build</strong><p>Introduce one tempo run per week. Easy run distance increases to 30–35 min.</p></div>
+      <div class="week-block"><strong>Weeks 6–7 — Sharpen</strong><p>One short interval session (6–8 × 400m). Tempo maintained. Race-day strategy briefing.</p></div>
+      <div class="week-block"><strong>Week 8 — Taper & Race</strong><p>Volume drops 40%. One short activation run mid-week. Race at weekend.</p></div>`
+  },
+  '10k': {
+    tag: 'Running · 10 Weeks · 3 Runs/Week',
+    title: '10K Training Program',
+    content: `
+      <h3>Who this is for</h3>
+      <p>Members who have completed a 5K or can comfortably run 35–40 minutes. Introduces structured interval work to develop both speed and aerobic endurance needed for 10K.</p>
+      <h3>Weekly structure</h3>
+      <div class="session-row"><span class="session-day">Run 1</span><span class="session-desc">Long run — builds from 35 min to 55 min at easy/moderate effort over 10 weeks.</span></div>
+      <div class="session-row"><span class="session-day">Run 2</span><span class="session-desc">Intervals — 6–10 × 800m at 10K goal pace, with 90-second rest between reps.</span></div>
+      <div class="session-row"><span class="session-day">Run 3</span><span class="session-desc">Threshold run — 20–30 min at comfortably hard sustained effort.</span></div>
+      <h3>10-week plan overview</h3>
+      <div class="week-block"><strong>Weeks 1–3 — Aerobic Foundation</strong><p>Long runs and threshold work. Intervals introduced gently (6 × 400m) to assess current fitness.</p></div>
+      <div class="week-block"><strong>Weeks 4–7 — Development</strong><p>800m repeats, long runs to 50 min, threshold runs lengthen. Weekly volume peaks here.</p></div>
+      <div class="week-block"><strong>Weeks 8–9 — Race Prep</strong><p>One race-pace tune-up run. Reduce CrossFit metcon intensity. Practice fuelling strategy.</p></div>
+      <div class="week-block"><strong>Week 10 — Taper & Race</strong><p>Volume halved. Two short activation runs. Race day.</p></div>`
+  },
+  'halfmarathon': {
+    tag: 'Running · 14 Weeks · 4 Runs/Week',
+    title: 'Half Marathon Program',
+    content: `
+      <h3>Who this is for</h3>
+      <p>Athletes who can run a solid 10K and want to take on the half marathon. This plan carefully manages total load so your CrossFit performance doesn't collapse during the build. Strength maintenance sessions are built in.</p>
+      <h3>Weekly structure</h3>
+      <div class="session-row"><span class="session-day">Monday</span><span class="session-desc">Rest or easy 20-min recovery jog. No class this day during peak weeks.</span></div>
+      <div class="session-row"><span class="session-day">Tuesday</span><span class="session-desc">Speed work — track intervals or Fartlek. 40–55 min total including warm-up.</span></div>
+      <div class="session-row"><span class="session-day">Thursday</span><span class="session-desc">Threshold / tempo run — 30–40 min at sustained effort.</span></div>
+      <div class="session-row"><span class="session-day">Saturday</span><span class="session-desc">Long run — builds from 12 km to 20 km (weeks 11–12), then tapers.</span></div>
+      <h3>14-week plan overview</h3>
+      <div class="week-block"><strong>Weeks 1–4 — Base & Frequency</strong><p>Establish 4-run routine. Long runs 12–15 km. CrossFit volume maintained at 4–5 sessions/week.</p></div>
+      <div class="week-block"><strong>Weeks 5–9 — Build Phase</strong><p>Long run extends to 17 km. Intervals lengthen to 1-mile repeats. CrossFit reduced to 3 sessions in peak weeks.</p></div>
+      <div class="week-block"><strong>Weeks 10–12 — Peak Block</strong><p>Two long runs of 19–20 km. Race-pace miles in long run. CrossFit drops to 2 sessions/week.</p></div>
+      <div class="week-block"><strong>Weeks 13–14 — Taper</strong><p>Volume reduced 40% then 60%. Shakeout runs only. Race day in week 14.</p></div>`
+  },
+  'upper-injury': {
+    tag: 'Injury Management · 3 Phases · Ongoing',
+    title: 'Upper Body Rehab Program',
+    content: `
+      <h3>Important note</h3>
+      <p>This programme supports common upper body complaints but is not a replacement for professional physiotherapy. If you are in acute pain or experiencing numbness, see a physio before starting. Always inform your CrossFit Gorey coach.</p>
+      <h3>Common conditions addressed</h3>
+      <div class="session-row"><span class="session-day">Shoulder</span><span class="session-desc">Rotator cuff strain, impingement, labral irritation, AC joint soreness</span></div>
+      <div class="session-row"><span class="session-day">Elbow</span><span class="session-desc">Lateral/medial epicondylitis, bicep tendinopathy</span></div>
+      <div class="session-row"><span class="session-day">Wrist</span><span class="session-desc">Wrist impingement, TFCC irritation, general stiffness/pain</span></div>
+      <h3>3-phase programme</h3>
+      <div class="week-block"><strong>Phase 1 — Pain-free Movement (Weeks 1–3)</strong><p>No load through the painful range. Gentle mobility, soft tissue work, blood flow promotion. Continue lower body WOD elements and cardio. 15 min daily.</p></div>
+      <div class="week-block"><strong>Phase 2 — Stability & Control (Weeks 4–6)</strong><p>Resistance bands and light dumbbells. Motor control drills for rotator cuff, scapular stability, and grip. Progress to ring rows and banded pull-downs.</p></div>
+      <div class="week-block"><strong>Phase 3 — Return to Loading (Weeks 7+)</strong><p>Gradual reintroduction of pressing, pulling, and eventually kipping. All progressions pain-free. Coach check-in required before advancing.</p></div>
+      <div class="warning-box">If pain increases at any point, stop and contact your coach or physio immediately.</div>`
+  },
+  'lower-injury': {
+    tag: 'Injury Management · 3 Phases · Ongoing',
+    title: 'Lower Body Rehab Program',
+    content: `
+      <h3>Important note</h3>
+      <p>This programme is designed to support common lower limb complaints. Acute injuries or sudden-onset pain should be evaluated by a physio before starting. Inform your CrossFit Gorey coach before class.</p>
+      <h3>Common conditions addressed</h3>
+      <div class="session-row"><span class="session-day">Knee</span><span class="session-desc">Patellar tendinopathy, runner's knee (PFPS), IT band syndrome</span></div>
+      <div class="session-row"><span class="session-day">Hip</span><span class="session-desc">FAI, hip flexor strain, glute tendinopathy</span></div>
+      <div class="session-row"><span class="session-day">Ankle/Foot</span><span class="session-desc">Plantar fasciitis, Achilles tendinopathy, ankle sprains (post-acute)</span></div>
+      <h3>3-phase programme</h3>
+      <div class="week-block"><strong>Phase 1 — Unloaded Work (Weeks 1–3)</strong><p>Non-weight-bearing mobility, supine activation (glute bridges, clamshells, foot doming). Upper body WOD elements continue. Bike/row for cardio. 15–20 min daily.</p></div>
+      <div class="week-block"><strong>Phase 2 — Single-Leg Stability (Weeks 4–6)</strong><p>Single-leg balance, step-ups, split squats (as tolerated), light band resistance. Isometric loading for tendon conditions. Box step-ups replace jumping/running.</p></div>
+      <div class="week-block"><strong>Phase 3 — Return to Squatting & Running (Weeks 7+)</strong><p>Progressive return to bilateral squatting, then single-leg plyometrics, then running. Gradual reintroduction to full WODs with coach sign-off.</p></div>
+      <div class="warning-box">If pain increases at any point, stop and contact your coach or physio immediately.</div>`
+  }
+};
+
+function openModal(key) {
+  const p = programs[key];
+  if (!p) return;
+  document.getElementById('modal-tag').textContent = p.tag;
+  document.getElementById('modal-title').textContent = p.title;
+  document.getElementById('modal-content').innerHTML = p.content;
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+}
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('navlinks').classList.toggle('open');
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
