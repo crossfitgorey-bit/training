@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Olympic Lifting | CrossFit Gorey</title>
+<style>
+:root{--black:#0a0a0a;--white:#ffffff;--gray-100:#f2f2f2;--gray-200:#e0e0e0;--gray-400:#999;--gray-600:#555;--gray-800:#222;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,Arial,sans-serif;background:var(--gray-100);color:var(--gray-800);line-height:1.6;}
+nav{background:var(--black);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;border-bottom:2px solid #222;}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:.75rem;font-weight:500;color:var(--gray-400);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;}
+.nav-links a:hover{color:var(--white);}
+.nav-badge{background:var(--white);color:var(--black);font-size:.7rem;font-weight:700;padding:5px 14px;border-radius:1px;letter-spacing:.08em;text-transform:uppercase;}
+.prog-hero{background:var(--black);padding:3rem 2rem 2.5rem;border-bottom:3px solid var(--white);}
+.prog-hero-inner{max-width:900px;margin:0 auto;}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;color:var(--gray-400);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--white);}
+.prog-tag{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.5rem;}
+.prog-title{font-family:'Arial Black',Arial,sans-serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:var(--white);text-transform:uppercase;letter-spacing:.04em;line-height:1.05;margin-bottom:1rem;}
+.prog-meta{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.prog-meta-item{font-size:.8rem;color:var(--gray-400);}
+.prog-meta-item strong{color:var(--white);display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;}
+.prog-body{max-width:900px;margin:0 auto;padding:2.5rem 2rem;}
+.phase-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+.phase-tab{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1rem;border:1px solid var(--gray-200);background:var(--white);color:var(--gray-600);cursor:pointer;border-radius:1px;transition:all .2s;}
+.phase-tab.active,.phase-tab:hover{background:var(--black);color:var(--white);border-color:var(--black);}
+.phase-section{display:none;}
+.phase-section.active{display:block;}
+.phase-header{background:var(--black);color:var(--white);padding:1.25rem 1.5rem;border-radius:2px;margin-bottom:1.5rem;}
+.phase-header h2{font-family:'Arial Black',Arial,sans-serif;font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem;}
+.phase-header p{font-size:.83rem;color:var(--gray-400);line-height:1.6;}
+.week-block{background:var(--white);border:1px solid var(--gray-200);border-radius:2px;margin-bottom:1.5rem;overflow:hidden;}
+.week-header{padding:1rem 1.5rem;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.week-header h3{font-family:'Arial Black',Arial,sans-serif;font-size:.95rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--black);}
+.week-toggle{font-size:1.2rem;color:var(--gray-400);transition:transform .2s;}
+.week-toggle.open{transform:rotate(180deg);}
+.week-content{display:none;padding:1.5rem;}
+.week-content.open{display:block;}
+.session{margin-bottom:1.75rem;}
+.session:last-child{margin-bottom:0;}
+.session-label{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.4rem;}
+.session-title{font-family:'Arial Black',Arial,sans-serif;font-size:1rem;font-weight:900;color:var(--black);text-transform:uppercase;letter-spacing:.04em;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--black);}
+.exercise{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;padding:.9rem 0;border-bottom:1px solid var(--gray-100);}
+.exercise:last-child{border-bottom:none;}
+.ex-name{font-size:.9rem;font-weight:700;color:var(--black);margin-bottom:.2rem;}
+.ex-scheme{font-size:.82rem;color:var(--gray-600);margin-bottom:.3rem;}
+.ex-notes{font-size:.78rem;color:var(--gray-400);font-style:italic;line-height:1.5;}
+.ex-video{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;color:var(--black);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;background:var(--gray-100);border:1px solid var(--gray-200);padding:.35rem .75rem;border-radius:1px;white-space:nowrap;margin-top:.4rem;transition:background .2s;}
+.ex-video:hover{background:var(--black);color:var(--white);}
+.ex-video svg{width:14px;height:14px;flex-shrink:0;}
+.session-note{background:var(--gray-100);border-left:3px solid var(--black);padding:.75rem 1rem;font-size:.82rem;color:var(--gray-600);margin-top:1rem;border-radius:0 2px 2px 0;}
+.pct-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:1rem 0;}
+.pct-table th{background:var(--black);color:var(--white);padding:.5rem .75rem;text-align:left;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;}
+.pct-table td{padding:.5rem .75rem;border-bottom:1px solid var(--gray-100);}
+.pct-table tr:last-child td{border-bottom:none;}
+footer{background:var(--black);padding:2rem;color:var(--gray-400);text-align:center;font-size:.78rem;margin-top:3rem;}
+footer a{color:var(--gray-400);text-decoration:none;}
+footer a:hover{color:var(--white);}
+@media(max-width:600px){nav .nav-links{display:none;}.exercise{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 180 52" height="40" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="32" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="28" fill="white" textLength="152" lengthAdjust="spacingAndGlyphs">CrossFit</text>
+      <text x="156" y="18" font-family="Arial,sans-serif" font-size="11" fill="white">®</text>
+      <rect x="0" y="37" width="152" height="15" fill="white"/>
+      <text x="76" y="49" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="10" fill="black" text-anchor="middle" letter-spacing="3">GOREY</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#programs">Programs</a></li>
+    <li><a href="index.html#running">Running</a></li>
+    <li><a href="index.html#injury">Injury</a></li>
+    <li><a href="#" class="nav-badge">Member Login</a></li>
+  </ul>
+</nav>
+
+<div class="prog-hero">
+  <div class="prog-hero-inner">
+    <a href="index.html" class="back-link">← Back to all programs</a>
+    <p class="prog-tag">Weightlifting · Olympic</p>
+    <h1 class="prog-title">Olympic Lifting Program</h1>
+    <div class="prog-meta">
+      <div class="prog-meta-item"><strong>Duration</strong>12 Weeks</div>
+      <div class="prog-meta-item"><strong>Sessions/Week</strong>3 Sessions</div>
+      <div class="prog-meta-item"><strong>Session Length</strong>45–60 Min</div>
+      <div class="prog-meta-item"><strong>Level</strong>Intermediate</div>
+      <div class="prog-meta-item"><strong>Best Days</strong>Tue / Thu / Sat</div>
+    </div>
+  </div>
+</div>
+
+<div class="prog-body">
+  <div class="phase-tabs">
+    <button class="phase-tab active" onclick="showPhase('p1',this)">Phase 1 — Technique (Wks 1–4)</button>
+    <button class="phase-tab" onclick="showPhase('p2',this)">Phase 2 — Intensity (Wks 5–8)</button>
+    <button class="phase-tab" onclick="showPhase('p3',this)">Phase 3 — Peaking (Wks 9–12)</button>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-section active" id="p1">
+    <div class="phase-header">
+      <h2>Phase 1 — Technique & Volume (Weeks 1–4)</h2>
+      <p>All lifts at 70–80% 1RM. High rep positional drills. Back squat 3×5 building weekly. Focus: ingrain positions under moderate fatigue before intensity is added.</p>
+    </div>
+
+    <table class="pct-table">
+      <tr><th>Week</th><th>Snatch %</th><th>C&J %</th><th>Back Squat</th></tr>
+      <tr><td>Week 1</td><td>70%</td><td>70%</td><td>3×5 @ 70%</td></tr>
+      <tr><td>Week 2</td><td>72%</td><td>72%</td><td>3×5 @ 72%</td></tr>
+      <tr><td>Week 3</td><td>75%</td><td>75%</td><td>3×5 @ 75%</td></tr>
+      <tr><td>Week 4</td><td>78%</td><td>78%</td><td>3×5 @ 77% (deload -10%)</td></tr>
+    </table>
+
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Session A — Snatch Focus</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-label">Repeat each week of Phase 1 — adjust % per table above</p>
+          <p class="session-title">Snatch Session</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Snatch Warm-Up — Burgener Drill</p>
+            <p class="ex-scheme">3 rounds — PVC or empty bar</p>
+            <p class="ex-notes">Down and finish, elbows high and outside, muscle snatch, snatch lands. Standard warm-up every session.</p>
+            <a class="ex-video" href="https://youtu.be/iaQB7tOhbRA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Snatch Pull</p>
+            <p class="ex-scheme">4 × 4 @ 95% of snatch</p>
+            <p class="ex-notes">Bar stays close, big hip extension. Don't pull with arms — this is a leg and hip drill. Slow pull from floor to knee, then accelerate.</p>
+            <a class="ex-video" href="https://youtu.be/G1QygZ3Kd3w" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Snatch (full squat)</p>
+            <p class="ex-scheme">6 × 2 @ current week % — 3 min rest</p>
+            <p class="ex-notes">Build to working weight through 3 warm-up sets. Every rep should look identical. Record a set each session for technique review.</p>
+            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Overhead Squat</p>
+            <p class="ex-scheme">4 × 4 @ 60% snatch — pause 2 sec at bottom</p>
+            <p class="ex-notes">Strengthens the receiving position. Wide grip, active shoulders pressing up into the bar. Pause exposes any instability.</p>
+            <a class="ex-video" href="https://youtu.be/m_fvfJi94D8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="session-note">Phase 1 priority: positions, not weight. If a lift looks wrong on video, drop 5% and repeat.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Session B — Clean & Jerk Focus</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-label">Repeat each week of Phase 1</p>
+          <p class="session-title">Clean & Jerk Session</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Clean Pull</p>
+            <p class="ex-scheme">4 × 4 @ 95% of clean</p>
+            <p class="ex-notes">Same hip extension pattern as snatch pull but with clean grip. Lats engaged, bar brushes thighs, jump and shrug.</p>
+            <a class="ex-video" href="https://youtu.be/xx8WkFrST2Y" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Clean & Jerk (full squat clean)</p>
+            <p class="ex-scheme">6 × 2 @ current week % — 3 min rest</p>
+            <p class="ex-notes">Full squat receive, stand, then jerk. Each complex counts as one rep. Don't rush the jerk — reset your dip position first.</p>
+            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Push Press</p>
+            <p class="ex-scheme">4 × 4 @ 70% C&J</p>
+            <p class="ex-notes">Dip drive, press overhead. Builds jerk lockout strength. Keep torso vertical during the dip — don't fold forward.</p>
+            <a class="ex-video" href="https://youtu.be/yklSQG1_Ovc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Front Squat</p>
+            <p class="ex-scheme">3 × 5 @ 80% clean</p>
+            <p class="ex-notes">High elbows, upright torso. The front squat is what limits your clean — strengthen it directly.</p>
+            <a class="ex-video" href="https://youtu.be/Q1R0_CbgHpc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Session C — Back Squat & Both Lifts</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-label">Repeat each week of Phase 1</p>
+          <p class="session-title">Squat & Positional Reinforcement</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Back Squat</p>
+            <p class="ex-scheme">3 × 5 @ increasing weekly (see table) — 3 min rest</p>
+            <p class="ex-notes">Full depth, bar on traps, knees tracking toes. The squat is the engine of both lifts — treat it seriously.</p>
+            <a class="ex-video" href="https://youtu.be/Akd5xmZlsvg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Snatch (moderate — 70% max)</p>
+            <p class="ex-scheme">4 × 2 — technique focus, not effort</p>
+            <p class="ex-notes">After squatting, the lifts will feel different. This is good — trains you to lift when fatigued.</p>
+            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Clean & Jerk (moderate — 70% max)</p>
+            <p class="ex-scheme">4 × 1 — long rest between</p>
+            <p class="ex-notes">Singles only on Session C. Quality over quantity. Reset fully between each attempt.</p>
+            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end phase 1 -->
+
+  <!-- PHASE 2 -->
+  <div class="phase-section" id="p2">
+    <div class="phase-header">
+      <h2>Phase 2 — Strength & Intensity (Weeks 5–8)</h2>
+      <p>Lifts build to 85–92%. Heavy singles appear from week 6. Front squat intensity increases. Accessory volume reduces — quality over quantity.</p>
+    </div>
+    <table class="pct-table">
+      <tr><th>Week</th><th>Snatch %</th><th>C&J %</th><th>Singles From</th><th>Back Squat</th></tr>
+      <tr><td>Week 5</td><td>80%</td><td>80%</td><td>—</td><td>4×4 @ 80%</td></tr>
+      <tr><td>Week 6</td><td>83%</td><td>83%</td><td>90%</td><td>4×3 @ 83%</td></tr>
+      <tr><td>Week 7</td><td>87%</td><td>87%</td><td>92%</td><td>3×3 @ 87%</td></tr>
+      <tr><td>Week 8</td><td>75%</td><td>75%</td><td>—</td><td>3×3 @ 75% (deload)</td></tr>
+    </table>
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Session A — Snatch (Weeks 5–8)</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">Snatch — Intensity Block</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Snatch Pull</p>
+            <p class="ex-scheme">3 × 3 @ 100% snatch (heavier than the lift)</p>
+            <p class="ex-notes">Overloading the pull pattern. You're training the body to create more force than the snatch requires.</p>
+            <a class="ex-video" href="https://youtu.be/G1QygZ3Kd3w" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Snatch — Working Sets</p>
+            <p class="ex-scheme">5 × 2 @ week % — 3 min rest</p>
+            <p class="ex-notes">Sets reduce from Phase 1 but intensity rises. Every rep at this weight should be near-maximal effort.</p>
+            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Heavy Single (Weeks 6–7 only)</p>
+            <p class="ex-scheme">Build to 90–92% — 1 attempt</p>
+            <p class="ex-notes">After your working sets. Not a max effort — a heavy, confident single. If the set felt off, skip the single today.</p>
+            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Overhead Squat</p>
+            <p class="ex-scheme">3 × 3 @ 70% snatch</p>
+            <p class="ex-notes">Reduced from Phase 1 but kept to maintain receiving position strength.</p>
+            <a class="ex-video" href="https://youtu.be/m_fvfJi94D8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Session B — Clean & Jerk (Weeks 5–8)</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">Clean & Jerk — Intensity Block</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Clean Pull</p>
+            <p class="ex-scheme">3 × 3 @ 100% clean</p>
+            <p class="ex-notes">Controlled first pull, explosive hip extension. The pull is where speed and height come from.</p>
+            <a class="ex-video" href="https://youtu.be/xx8WkFrST2Y" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Clean & Jerk — Working Sets</p>
+            <p class="ex-scheme">5 × 1+1 @ week % — 3 min rest</p>
+            <p class="ex-notes">1 clean + 1 jerk per set. Stand with the clean, regroup, then dip and drive the jerk. Don't rush the jerk after a heavy clean.</p>
+            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Split Jerk Technique Drill</p>
+            <p class="ex-scheme">3 × 4 @ 70% — pause in split for 2 sec</p>
+            <p class="ex-notes">Pause in split position to check: front knee over ankle, back knee slightly bent, torso upright, arms locked. Fix any wobbles here.</p>
+            <a class="ex-video" href="https://youtu.be/2GPA-cjUFnA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Front Squat</p>
+            <p class="ex-scheme">4 × 3 @ 85% clean — 3 min rest</p>
+            <p class="ex-notes">Heavier than Phase 1. Work the clean receiving position under real load.</p>
+            <a class="ex-video" href="https://youtu.be/Q1R0_CbgHpc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end phase 2 -->
+
+  <!-- PHASE 3 -->
+  <div class="phase-section" id="p3">
+    <div class="phase-header">
+      <h2>Phase 3 — Peaking (Weeks 9–12)</h2>
+      <p>Volume drops significantly. Lifts at 90–100%+. PR attempts in weeks 10 and 12. Full deload in week 11. This is where the hard work of phases 1 and 2 pays off.</p>
+    </div>
+    <table class="pct-table">
+      <tr><th>Week</th><th>Focus</th><th>Snatch</th><th>C&J</th></tr>
+      <tr><td>Week 9</td><td>Build to heavy single</td><td>3×1 @ 90–95%</td><td>3×1 @ 90–95%</td></tr>
+      <tr><td>Week 10</td><td>PR attempt</td><td>Build to max — 1 attempt</td><td>Build to max — 1 attempt</td></tr>
+      <tr><td>Week 11</td><td>Full deload</td><td>3×2 @ 70%</td><td>3×2 @ 70%</td></tr>
+      <tr><td>Week 12</td><td>Final PR attempt</td><td>Build to max — 1–2 attempts</td><td>Build to max — 1–2 attempts</td></tr>
+    </table>
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Week 9 — Building to Heavy Singles</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">All Sessions — Weeks 9 Template</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Snatch — Warm Up to Working Weight</p>
+            <p class="ex-scheme">Warm up sets: 50% × 3, 60% × 2, 70% × 1, 80% × 1 — then 3 × 1 @ 90–95%</p>
+            <p class="ex-notes">Each single is performed with full intent. 4 min rest between singles. The bar should feel fast — if it feels slow, stop.</p>
+            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Clean & Jerk — Same Protocol</p>
+            <p class="ex-scheme">3 × 1 @ 90–95% — 4 min rest</p>
+            <p class="ex-notes">Separate session from snatch. Never attempt max snatch and max C&J in the same session during peaking.</p>
+            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Back Squat</p>
+            <p class="ex-scheme">2 × 2 @ 85% — keep strength topped up</p>
+            <p class="ex-notes">Reduced volume. Just enough to maintain leg strength going into the PR weeks.</p>
+            <a class="ex-video" href="https://youtu.be/Akd5xmZlsvg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Week 10 & 12 — PR Attempts</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">PR Day Protocol</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Warm-Up (30 min)</p>
+            <p class="ex-scheme">Mobility → light singles building to 85%</p>
+            <p class="ex-notes">Spend extra time warming up today. You want your first heavy single to feel like a medium effort. Never rush to the heavy weight.</p>
+            <a class="ex-video" href="https://youtu.be/iaQB7tOhbRA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Snatch — PR Attempt</p>
+            <p class="ex-scheme">90% → 95% → PR attempt (100%+). Max 3 attempts above 95%.</p>
+            <p class="ex-notes">After a successful lift, add 1–2kg only. After a miss, try the same weight again. Never add weight after a miss.</p>
+            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Clean & Jerk — PR Attempt (separate day)</p>
+            <p class="ex-scheme">Same protocol as snatch. 90% → 95% → PR.</p>
+            <p class="ex-notes">The jerk is often where C&J PRs are lost. Be aggressive in the dip and drive — a tentative jerk rarely succeeds at max weights.</p>
+            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="session-note">🏆 Week 12 is the final PR day. Record all attempts on video. Book a coach to watch if possible — an external eye catches things you can't feel.</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end phase 3 -->
+
+</div>
+
+<footer>
+  <p>CrossFit Gorey Members Area · <a href="index.html">← All Programs</a> · Gorey, Co. Wexford</p>
+</footer>
+
+<script>
+function showPhase(id,btn){document.querySelectorAll('.phase-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.phase-tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function toggleWeek(header){const content=header.nextElementSibling;const toggle=header.querySelector('.week-toggle');const isOpen=content.classList.contains('open');content.classList.toggle('open',!isOpen);toggle.classList.toggle('open',!isOpen);}
+</script>
+</body>
+</html>
