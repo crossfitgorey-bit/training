@@ -65,6 +65,15 @@ footer{background:var(--black);padding:2rem;color:var(--gray-400);text-align:cen
 footer a{color:var(--gray-400);text-decoration:none;}
 footer a:hover{color:var(--white);}
 @media(max-width:600px){nav .nav-links{display:none;}.exercise{grid-template-columns:1fr;}.rpe-grid{grid-template-columns:1fr 1fr;}}
+
+/* VIDEO MODAL */
+.video-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;padding:1rem;}
+.video-overlay.open{display:flex;}
+.video-modal{background:#000;border-radius:2px;max-width:700px;width:100%;position:relative;}
+.video-modal-close{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1;padding:0;}
+.video-modal-close:hover{opacity:0.6;}
+.video-modal iframe{width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:2px;}
+.video-modal-title{color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem;}
 </style>
 </head>
 <body>
@@ -139,31 +148,31 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Back Squat — Main Lift</p>
             <p class="ex-scheme">4 × 5 @ RPE 8 — 3 min rest between sets</p>
             <p class="ex-notes">Find a weight that leaves you feeling like you had 2 reps left on the last set. If it felt easy, add 2.5–5kg. If hard, stay the same next week.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=ultWZbUMPL8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('ultWZbUMPL8', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Paused Squat</p>
             <p class="ex-scheme">3 × 3 @ 70% of today's squat — 3 sec pause at bottom</p>
             <p class="ex-notes">Pause kills the stretch reflex — you must squat out of the hole under your own power. Exposes and strengthens weak points.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=wyox-W0HxRg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('wyox-W0HxRg', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Bench Press — Secondary</p>
             <p class="ex-scheme">3 × 8 @ RPE 7 — 2 min rest</p>
             <p class="ex-notes">Moderate effort — this is not the main bench day. Maintain tightness in the upper back. Bar touches lower chest.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('vcBig73ojpE', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Romanian Deadlift</p>
             <p class="ex-scheme">3 × 10 @ moderate weight — 90 sec rest</p>
             <p class="ex-notes">Hinge at hips, soft knees, bar stays close to legs. Feel the hamstring stretch. Builds posterior chain for both squat and deadlift.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=JCXUYuzwNrM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('JCXUYuzwNrM', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Lat Pulldown or Chest-Supported Row</p>
             <p class="ex-scheme">3 × 12 — 60 sec rest</p>
             <p class="ex-notes">Upper back pulling accessory. Balances the pressing volume and protects the shoulders long-term.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('CAwf7n6Luuc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="session-note">Total session time: ~65 min. If you're short on time, drop the last accessory — never cut the main lifts short.</div>
         </div>
@@ -182,31 +191,31 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Bench Press — Main Lift</p>
             <p class="ex-scheme">4 × 5 @ RPE 8 — 3 min rest</p>
             <p class="ex-notes">Shoulder blades retracted and depressed, feet flat on floor, slight arch in lower back. The bench is a full-body lift — use leg drive.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('vcBig73ojpE', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Close Grip Bench Press</p>
             <p class="ex-scheme">3 × 8 @ 75% of today's bench</p>
             <p class="ex-notes">Hands shoulder-width. Builds tricep lockout strength — the most common sticking point in the bench press.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=nEF0bv2FW94" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('nEF0bv2FW94', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Deadlift — Secondary</p>
             <p class="ex-scheme">3 × 5 @ RPE 7 — 3 min rest</p>
             <p class="ex-notes">Not max effort today — this is a secondary day. Focus on set-up: hips back, lats engaged, bar over mid foot. Pull the floor apart with your feet.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('op9kVnSso6Q', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Tricep Pushdown (cable or band)</p>
             <p class="ex-scheme">3 × 15 — 60 sec rest</p>
             <p class="ex-notes">Direct tricep work. Elbows stay tucked at sides. Full extension at the bottom.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=kiuVA0gs3EI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('kiuVA0gs3EI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Face Pull</p>
             <p class="ex-scheme">3 × 15 — 60 sec rest</p>
             <p class="ex-notes">Rear delt and external rotation work. Essential shoulder health for heavy pressers. Pull to forehead, elbows high.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=rep-qVOkqgk" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('rep-qVOkqgk', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
         </div>
       </div>
@@ -224,31 +233,31 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Deadlift — Main Lift</p>
             <p class="ex-scheme">4 × 5 @ RPE 8 — 3 min rest</p>
             <p class="ex-notes">Choose conventional or sumo — whichever you plan to compete or test with. Be consistent. Build to working weight over 3–4 warm-up sets.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('op9kVnSso6Q', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Deficit Deadlift</p>
             <p class="ex-scheme">3 × 4 @ 70% of today's deadlift — stand on 25kg plate</p>
             <p class="ex-notes">Greater range of motion — strengthens the weakest part of the pull (off the floor). Improves starting position and leg drive.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=Mj0BQEF0vhc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('Mj0BQEF0vhc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Back Squat — Secondary</p>
             <p class="ex-scheme">3 × 5 @ RPE 7 — 2 min rest</p>
             <p class="ex-notes">Lighter than Monday. Keep the pattern consistent. These reps should feel smooth and controlled.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=ultWZbUMPL8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('ultWZbUMPL8', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Barbell Row</p>
             <p class="ex-scheme">3 × 8 — 90 sec rest</p>
             <p class="ex-notes">Overhand grip, hinge to ~45°, row bar to lower chest. Builds upper back thickness — key for a strong deadlift lockout and bench arch.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=FWJR5Ve8bnQ" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('FWJR5Ve8bnQ', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Leg Press or Leg Extension</p>
             <p class="ex-scheme">3 × 12 — 60 sec rest</p>
             <p class="ex-notes">Quad accessory. Takes load off the spine while still building leg volume. Use full range of motion.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('IZxyjW7MPJQ', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="session-note">Weeks 1–4: Track every working weight. You should be able to add 2.5–5kg to each main lift every week in Phase 1.</div>
         </div>
@@ -281,25 +290,25 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Back Squat — Main Lift</p>
             <p class="ex-scheme">Per week table above — building toward heavy triples then doubles</p>
             <p class="ex-notes">You will feel like you could do more reps at these weights — that's correct. The low rep ranges train the nervous system, not just the muscles.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=ultWZbUMPL8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('ultWZbUMPL8', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Box Squat</p>
             <p class="ex-scheme">3 × 3 @ 75% of main lift</p>
             <p class="ex-notes">Sit back onto a box just below parallel. Pause briefly, then drive up explosively. Trains the squat out of the hole — the hardest part at max weights.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=S_nGFtAkM0c" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('S_nGFtAkM0c', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Bench Press (secondary)</p>
             <p class="ex-scheme">3 × 5 @ RPE 7</p>
             <p class="ex-notes">Maintained but lighter. Don't push this on squat day — save energy for the main work.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('vcBig73ojpE', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Leg Curl</p>
             <p class="ex-scheme">3 × 10</p>
             <p class="ex-notes">Hamstring health work. Controlled lowering (3 sec). The hamstrings decelerate the knee — protect them as weights get heavier.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('1Tq3QdYUuHs', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
         </div>
       </div>
@@ -316,19 +325,19 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Bench Press — Main Lift</p>
             <p class="ex-scheme">Per week table — building to heavy doubles</p>
             <p class="ex-notes">Increase the intensity of your setup as weights rise. White-knuckle the bar, squeeze the lats, create full body tension before unracking.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('vcBig73ojpE', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Paused Bench Press</p>
             <p class="ex-scheme">3 × 3 @ 75% — 2 sec pause on chest</p>
             <p class="ex-notes">Bar stays on chest for a full 2-count. No bouncing. Builds raw pressing strength and competition-legal technique.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=cXbSJHtjrQQ" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('cXbSJHtjrQQ', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Deadlift (secondary)</p>
             <p class="ex-scheme">3 × 3 @ RPE 7</p>
             <p class="ex-notes">Keep the pattern sharp. Don't max out on secondary deadlift day — it will cost you on Friday.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('op9kVnSso6Q', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
         </div>
       </div>
@@ -360,19 +369,19 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Squat / Bench / Deadlift — Warm-Up Ladder</p>
             <p class="ex-scheme">50% × 5 → 60% × 3 → 70% × 2 → 80% × 1 → 87% × 1 → Working weight</p>
             <p class="ex-notes">Thorough warm-up is even more important when weights are heavy. Never rush to the working weight.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=ultWZbUMPL8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('ultWZbUMPL8', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Week 10 & 12 — 1RM Attempt Protocol</p>
             <p class="ex-scheme">90% × 1 → 95% × 1 → 100%+ × 1 attempt per lift</p>
             <p class="ex-notes">After a made lift: add 1–2.5kg. After a miss: don't retry heavier — attempt same weight or call it. Limit max attempts to 3 per lift per day.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('op9kVnSso6Q', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Accessories (weeks 9–10)</p>
             <p class="ex-scheme">1–2 light accessory movements only — 2×8 @ easy weight</p>
             <p class="ex-notes">Accessories exist to maintain muscle, not accumulate fatigue. Keep them brief and well within your ability in peaking weeks.</p>
-            <a class="ex-video" href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('CAwf7n6Luuc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="session-note">🏆 Week 12: Record all 3 lifts on video. Log your total (Squat + Bench + Deadlift). This is your baseline for the next cycle — run Phase 1 again at slightly higher intensities to continue progressing.</div>
         </div>
@@ -389,6 +398,27 @@ footer a:hover{color:var(--white);}
 <script>
 function showPhase(id,btn){document.querySelectorAll('.phase-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.phase-tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
 function toggleWeek(header){const content=header.nextElementSibling;const toggle=header.querySelector('.week-toggle');const isOpen=content.classList.contains('open');content.classList.toggle('open',!isOpen);toggle.classList.toggle('open',!isOpen);}
+</script>
+
+<!-- VIDEO MODAL -->
+<div class="video-overlay" id="video-overlay" onclick="if(event.target===this) closeVideo()">
+  <div class="video-modal">
+    <button class="video-modal-close" onclick="closeVideo()">×</button>
+    <p class="video-modal-title" id="video-modal-title"></p>
+    <iframe id="video-frame" src="" title="Exercise demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<script>
+function openVideo(id, title) {
+  document.getElementById('video-frame').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+  document.getElementById('video-modal-title').textContent = title || '';
+  document.getElementById('video-overlay').classList.add('open');
+}
+function closeVideo() {
+  document.getElementById('video-overlay').classList.remove('open');
+  document.getElementById('video-frame').src = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
 </script>
 </body>
 </html>

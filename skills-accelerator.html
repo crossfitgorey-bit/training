@@ -70,6 +70,15 @@ footer a:hover{color:var(--white);}
   .prog-meta{flex-direction:column;gap:.75rem;}
   .exercise{grid-template-columns:1fr;}
 }
+
+/* VIDEO MODAL */
+.video-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;padding:1rem;}
+.video-overlay.open{display:flex;}
+.video-modal{background:#000;border-radius:2px;max-width:700px;width:100%;position:relative;}
+.video-modal-close{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1;padding:0;}
+.video-modal-close:hover{opacity:0.6;}
+.video-modal iframe{width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:2px;}
+.video-modal-title{color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem;}
 </style>
 </head>
 <body>
@@ -138,7 +147,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Dead Hang</p>
               <p class="ex-scheme">3 × 20–30 sec</p>
               <p class="ex-notes">Straight arms, active shoulders (pull them down away from ears). Build grip endurance.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=0CKTCJbKpEI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('0CKTCJbKpEI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -146,7 +155,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Strict Pull-Up (or Ring Row)</p>
               <p class="ex-scheme">4 × max reps (cap at 8) — 2 min rest</p>
               <p class="ex-notes">Full range: dead hang to chin over bar. Scale to ring rows if fewer than 3 strict pull-ups.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=eGo4IYlbE5g" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('eGo4IYlbE5g', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -154,7 +163,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Hollow Body Hold</p>
               <p class="ex-scheme">4 × 20 sec hold — 45 sec rest</p>
               <p class="ex-notes">Lower back pressed flat to the floor, arms overhead. The foundation of all gymnastics movement.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=LlDNef_Ztsc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('LlDNef_Ztsc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -162,7 +171,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Arch Body Hold</p>
               <p class="ex-scheme">4 × 20 sec hold — 45 sec rest</p>
               <p class="ex-notes">Lie face down, lift chest and legs simultaneously. The kip is an alternation between these two positions.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=mfAqJqpMZoI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('mfAqJqpMZoI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -170,7 +179,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Dip Support Hold (on rings or bars)</p>
               <p class="ex-scheme">3 × 15–20 sec</p>
               <p class="ex-notes">Straight arms, rings turned out, locked out at the top. Builds the upper body pressing strength needed for muscle-ups.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=G1bGBMUkGcA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('G1bGBMUkGcA', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="session-note">Rest 90 sec between exercises unless noted. Focus on quality — stop a set if form breaks down.</div>
@@ -184,7 +193,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Shoulder Warm-Up Circles & Banded Distractions</p>
               <p class="ex-scheme">2 min — not for score</p>
               <p class="ex-notes">Prepare the shoulder joint before any overhead work. Never skip this.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=i7F_D-gpIEc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('i7F_D-gpIEc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -192,7 +201,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Wall Walk</p>
               <p class="ex-scheme">4 × 3 reps — 90 sec rest</p>
               <p class="ex-notes">Start in push-up position, walk hands toward wall as feet walk up. Go as high as comfortable. Builds overhead tolerance progressively.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=0x7OnGOq480" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('0x7OnGOq480', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -200,7 +209,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Pike Push-Up</p>
               <p class="ex-scheme">4 × 6–8 reps — 90 sec rest</p>
               <p class="ex-notes">Hips high, head through at the bottom. Direct pressing strength builder for HSPU.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=x7_I5SUAd00" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('x7_I5SUAd00', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -208,7 +217,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Handstand Hold (Wall Facing)</p>
               <p class="ex-scheme">3 × 15–20 sec — 90 sec rest</p>
               <p class="ex-notes">Face the wall, hands 5–6 inches from the baseboard. Keep body tight, belly button in, squeeze glutes.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=16_klnAMBBM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('16_klnAMBBM', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="session-note">If wrists get sore, rest and mobilise — do not push through wrist pain.</div>
@@ -222,7 +231,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Single-Under Jump Rope</p>
               <p class="ex-scheme">3 × 60 sec continuous — 45 sec rest</p>
               <p class="ex-notes">Focus on wrist rotation (not big arm swings), soft knees, landing on the balls of your feet. Establish rhythm before attempting double-unders.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=hCuXYrTOMxI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('hCuXYrTOMxI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -230,7 +239,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Snatch with PVC Pipe — Overhead Squat</p>
               <p class="ex-scheme">4 × 5 reps — slow and controlled</p>
               <p class="ex-notes">Wide grip, arms locked out overhead, squat to full depth. Identify and work on any mobility restrictions.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=UhVEwYbwfQM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('UhVEwYbwfQM', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -238,7 +247,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Snatch Pull with Empty Bar</p>
               <p class="ex-scheme">4 × 5 reps</p>
               <p class="ex-notes">Bar stays close to body, big hip extension at the top. No pull under yet — this is about the drive.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=MVMNk3dartQ" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('MVMNk3dartQ', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="session-note">Use a 20kg or 15kg bar max this phase. Video yourself from the side to check bar path.</div>
@@ -263,7 +272,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Hollow/Arch Swing on Bar</p>
               <p class="ex-scheme">4 × 5 controlled swings — 90 sec rest</p>
               <p class="ex-notes">This IS the kip. Alternate between hollow (front) and arch (back) positions. Keep arms straight throughout.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=RIsKmAWGBQI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('RIsKmAWGBQI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -271,7 +280,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Kipping Pull-Up Attempt</p>
               <p class="ex-scheme">4 × 3–5 reps — 2 min rest</p>
               <p class="ex-notes">Use the swing — as hips drive forward, pull elbows down toward hips. Do not muscle it. Stop if form is lost.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=V9_C4s0FbPM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('V9_C4s0FbPM', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -279,7 +288,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Strict Pull-Up</p>
               <p class="ex-scheme">3 × max (cap at 6) — 2 min rest</p>
               <p class="ex-notes">Keep building strict strength alongside kipping — don't abandon strict work once kipping is introduced.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=eGo4IYlbE5g" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('eGo4IYlbE5g', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -287,7 +296,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Hollow Body Rock</p>
               <p class="ex-scheme">3 × 10 reps — 45 sec rest</p>
               <p class="ex-notes">Progress from the hold — add rocking motion while maintaining the hollow position without losing lower back contact with the floor.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=iOB8VFmjIAI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('iOB8VFmjIAI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -300,7 +309,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Wall Walk (progress from Week 1)</p>
               <p class="ex-scheme">4 × 3 reps — go closer to the wall each rep</p>
               <p class="ex-notes">Target: hands 3–4 inches from wall by end of this session.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=0x7OnGOq480" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('0x7OnGOq480', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -308,7 +317,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Kick-Up to Handstand (Wall)</p>
               <p class="ex-scheme">5 attempts each side — rest as needed</p>
               <p class="ex-notes">Lead leg steps forward, kick back leg up, follow with second. Aim for a controlled arrival, not a crash. Partner or wall for support.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=M8HMkiRM5s8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('M8HMkiRM5s8', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -316,7 +325,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Pike Push-Up (add deficit)</p>
               <p class="ex-scheme">4 × 6 reps — hands on plates or parallettes</p>
               <p class="ex-notes">Greater range of motion than flat floor. Builds deeper shoulder pressing strength.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=x7_I5SUAd00" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('x7_I5SUAd00', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -329,7 +338,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Power Jump Practice (no rope)</p>
               <p class="ex-scheme">3 × 20 reps — fast small jumps on the spot</p>
               <p class="ex-notes">Simulate double-under timing without the rope. Quick wrist circles alongside. Trains the rhythm before the rope is added.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=82llMpGBt6I" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('82llMpGBt6I', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -337,7 +346,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Single — Pause — Single (1-1-1 drill)</p>
               <p class="ex-scheme">4 × 20 reps — focus on timing</p>
               <p class="ex-notes">Single under, brief pause jump, then attempt a double-under. Trains the height and timing needed to get two rotations.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=82llMpGBt6I" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('82llMpGBt6I', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -345,7 +354,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Clean Pull with Empty Bar</p>
               <p class="ex-scheme">5 × 3 reps</p>
               <p class="ex-notes">Same as snatch pull but closer grip. Focus on lat engagement keeping bar close, big jump at the top.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=amWFEWBXzlg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('amWFEWBXzlg', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="session-note">Weeks 1–2 check-in: Are you achieving 3 strict pull-ups? Comfortable in a wall-facing handstand for 15 sec? Consistent single-unders? If not, repeat Phase 1 before moving on.</div>
@@ -375,7 +384,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Kipping Pull-Up (sets of 5)</p>
               <p class="ex-scheme">4 × 5 reps — 2 min rest</p>
               <p class="ex-notes">Confident and consistent before progressing to muscle-up. Hip drive must be generating the pull, not just arms.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=V9_C4s0FbPM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('V9_C4s0FbPM', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -383,7 +392,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Jumping Bar Muscle-Up (from box)</p>
               <p class="ex-scheme">5 × 3 reps — 2 min rest</p>
               <p class="ex-notes">Use a box to jump and practise the transition phase — pulling elbows down and back, then pressing up. This is the hardest part of the muscle-up.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=2Q3xBIFaECk" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('2Q3xBIFaECk', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -391,7 +400,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Bar Dip</p>
               <p class="ex-scheme">4 × 6–8 reps — 90 sec rest</p>
               <p class="ex-notes">Full range — lower until upper arms are parallel to floor. Builds the press-out strength for the top of the muscle-up.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('2z8JmcrW-As', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="session-note">Goal by end of week 3: 3 jumping bar muscle-up transitions feeling smooth and confident.</div>
@@ -404,7 +413,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Handstand Hold (back to wall)</p>
               <p class="ex-scheme">5 × 20–30 sec — 90 sec rest</p>
               <p class="ex-notes">Kick up with back to wall. Engage core, push floor away, spread fingers. Slightly different feel than wall-facing — prepares for freestanding.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=16_klnAMBBM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('16_klnAMBBM', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -412,7 +421,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Freestanding Kick-Up Attempts</p>
               <p class="ex-scheme">10 attempts — rest as needed</p>
               <p class="ex-notes">No wall. Kick up and try to find balance. Even 1–2 seconds freestanding counts as progress. Learn to bail safely (cartwheel out).</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=cPyDHWRkCyI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('cPyDHWRkCyI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -420,7 +429,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">HSPU Negative</p>
               <p class="ex-scheme">5 × 3 reps — 3 sec lower — 2 min rest</p>
               <p class="ex-notes">Kick up to wall handstand, slowly lower head to floor (or ab mat) over 3 seconds. Jump back up. Builds eccentric pressing strength.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=zDGR4sOIVCo" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('zDGR4sOIVCo', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -432,7 +441,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Double-Under Attempts</p>
               <p class="ex-scheme">8 min practice — count max unbroken each attempt</p>
               <p class="ex-notes">Jump higher than a single-under, quick wrist rotation. If frustrating: go back to 1-1-1 drill for 2 min then retry.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=82llMpGBt6I" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('82llMpGBt6I', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -440,7 +449,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Power Snatch — Barbell (40–50% 1RM)</p>
               <p class="ex-scheme">5 × 3 reps — 90 sec rest</p>
               <p class="ex-notes">No squat under — receive in a partial squat. Focus on bar path (close) and hip snap. Use a light weight you can move perfectly.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=tuOiNeTvlGs" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('tuOiNeTvlGs', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -461,7 +470,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Warm-Up Kipping Pull-Ups</p>
               <p class="ex-scheme">3 × 5 — build rhythm</p>
               <p class="ex-notes">Fluid and rhythmic. No grinding. These are prep, not the main work.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=V9_C4s0FbPM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('V9_C4s0FbPM', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -469,7 +478,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Bar Muscle-Up Attempts</p>
               <p class="ex-scheme">10–15 min practice — max 2–3 per attempt</p>
               <p class="ex-notes">Big hip drive, pull the bar to hips (not chin), then push chest through and press out. If not getting over: go back to jumping drill for 2 sets then retry.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=R7MoJQmKx7k" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('R7MoJQmKx7k', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -477,7 +486,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Dip + Pull-Up Superset</p>
               <p class="ex-scheme">3 rounds: 5 dips + 5 strict pull-ups — 90 sec rest</p>
               <p class="ex-notes">Keeps building the strength base whether muscle-up is achieved or not this week.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=2z8JmcrW-As" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('2z8JmcrW-As', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="session-note">Not everyone gets their first bar muscle-up in Week 4 — that is completely fine. The transition strength takes time. Stay consistent and it will come.</div>
@@ -490,7 +499,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Handstand Shoulder Taps</p>
               <p class="ex-scheme">4 × 5 taps each side — 2 min rest</p>
               <p class="ex-notes">Wall handstand, shift weight to one hand and lightly tap opposite shoulder. Builds the single-arm balance needed for walking.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=m0UKPbL4QT0" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('m0UKPbL4QT0', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -498,7 +507,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">HSPU Negatives (3 sec lower)</p>
               <p class="ex-scheme">4 × 4 reps — 2 min rest</p>
               <p class="ex-notes">Increased volume from week 3. Head touches 1 ab mat. Jump back up to top.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=zDGR4sOIVCo" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('zDGR4sOIVCo', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -506,7 +515,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">HSPU Attempt (from wall)</p>
               <p class="ex-scheme">5 attempts — rest fully between</p>
               <p class="ex-notes">If you can do 5 strong HSPU negatives, attempt a full press-up from the floor. Use 2 ab mats under head to reduce range initially.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=2AqR3mOB9DU" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('2AqR3mOB9DU', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -518,7 +527,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Double-Under Practice</p>
               <p class="ex-scheme">5 × 30 sec on / 30 sec off — count max unbroken</p>
               <p class="ex-notes">Record your best unbroken run each session. Progress is non-linear — some days will be worse than others.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=82llMpGBt6I" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('82llMpGBt6I', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -526,7 +535,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Touch-and-Go Power Clean (50% 1RM)</p>
               <p class="ex-scheme">5 × 3 reps — fast singles with rebound off the floor</p>
               <p class="ex-notes">Don't reset between reps. Use the bounce — this is barbell cycling. Stay on your toes, elbows punch forward fast.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=amWFEWBXzlg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('amWFEWBXzlg', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -554,7 +563,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">False Grip Ring Row</p>
               <p class="ex-scheme">4 × 8 reps — 90 sec rest</p>
               <p class="ex-notes">False grip = wrist over the ring (not standard grip). Essential for ring muscle-ups. Very uncomfortable at first — build the calluses.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=EHTn4aMGMRE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('EHTn4aMGMRE', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -562,7 +571,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Ring Muscle-Up from Low Rings (feet on floor)</p>
               <p class="ex-scheme">5 × 3 reps — 2 min rest</p>
               <p class="ex-notes">Use feet on floor for assistance. Focus on the transition and press-out. Reduce foot assistance over the 2 weeks.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=lw4NnivL4FA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('lw4NnivL4FA', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -570,7 +579,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Bar Muscle-Ups (consolidation)</p>
               <p class="ex-scheme">3 × max reps (cap at 5)</p>
               <p class="ex-notes">If you have bar muscle-ups: work sets of 2–3 for quality. If not yet: continue jumping drill + bar MU attempts.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=R7MoJQmKx7k" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('R7MoJQmKx7k', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -582,7 +591,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Freestanding Handstand Hold</p>
               <p class="ex-scheme">10 attempts — aim for 10+ sec each</p>
               <p class="ex-notes">Target: 30 sec by end of week 6. Use finger pressure to balance — lean forward, press fingertips; lean back, press heel of hand.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=cPyDHWRkCyI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('cPyDHWRkCyI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -590,7 +599,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Strict HSPU (with ab mat)</p>
               <p class="ex-scheme">5 × max reps — 2 min rest</p>
               <p class="ex-notes">1–2 ab mats under head. Full lockout at the top, controlled lower. Remove one ab mat when you can do 5 clean reps.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=2AqR3mOB9DU" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('2AqR3mOB9DU', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -602,7 +611,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Double-Under Ladder</p>
               <p class="ex-scheme">5-10-15-20-15-10-5 — rest 30 sec between</p>
               <p class="ex-notes">Sub single-unders (3:1) if needed. Track your unbroken record. Target: 20 unbroken DU by end of week 6.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=82llMpGBt6I" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('82llMpGBt6I', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -610,7 +619,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Touch-and-Go Snatch (50% 1RM)</p>
               <p class="ex-scheme">5 × 5 reps — 90 sec rest</p>
               <p class="ex-notes">Unbroken sets. Focus on keeping tension in the receiving position, fast elbows, controlled lower back to floor.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=tuOiNeTvlGs" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('tuOiNeTvlGs', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -638,7 +647,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">EMOM 10 min — Alternate:</p>
               <p class="ex-scheme">Odd min: 2–3 Bar or Ring Muscle-Ups / Even min: 5–8 HSPU</p>
               <p class="ex-notes">Scale: jumping muscle-ups + pike push-ups. Goal is consistency across all 10 rounds — choose a number you can hit every time.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=R7MoJQmKx7k" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('R7MoJQmKx7k', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="session-note">Record your round-by-round performance. Any rounds where you broke or missed? That's your capacity cap for WODs.</div>
@@ -651,7 +660,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Freestanding Handstand — Max Hold</p>
               <p class="ex-scheme">5 attempts — record best time</p>
               <p class="ex-notes">Target: 30 seconds. If already there — practise deliberate stepping (handstand walking intro).</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=cPyDHWRkCyI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('cPyDHWRkCyI', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="exercise">
@@ -659,7 +668,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">Handstand Walk (intro)</p>
               <p class="ex-scheme">10 attempts — aim for 1–3 steps each</p>
               <p class="ex-notes">From a freestanding hold, deliberately shift weight and move one hand. 1 step = success. Build from there.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=LM7o_UGBmxA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('LM7o_UGBmxA', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
         </div>
@@ -671,7 +680,7 @@ footer a:hover{color:var(--white);}
               <p class="ex-name">For Time:</p>
               <p class="ex-scheme">50 Double-Unders → 10 Bar Muscle-Ups → 50 Double-Unders → 10 HSPU → 50 Double-Unders</p>
               <p class="ex-notes">Scale: 100 single-unders / jumping muscle-ups / pike push-ups. Record your time — this is your Week 8 benchmark. Compare to where you started 8 weeks ago.</p>
-              <a class="ex-video" href="https://www.youtube.com/watch?v=82llMpGBt6I" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+              <button class="ex-video" onclick="openVideo('82llMpGBt6I', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
             </div>
           </div>
           <div class="session-note">🎉 Programme complete. Book a check-in with your coach to review progress and discuss what to run next.</div>
@@ -700,6 +709,27 @@ function toggleWeek(header) {
   content.classList.toggle('open', !isOpen);
   toggle.classList.toggle('open', !isOpen);
 }
+</script>
+
+<!-- VIDEO MODAL -->
+<div class="video-overlay" id="video-overlay" onclick="if(event.target===this) closeVideo()">
+  <div class="video-modal">
+    <button class="video-modal-close" onclick="closeVideo()">×</button>
+    <p class="video-modal-title" id="video-modal-title"></p>
+    <iframe id="video-frame" src="" title="Exercise demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<script>
+function openVideo(id, title) {
+  document.getElementById('video-frame').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+  document.getElementById('video-modal-title').textContent = title || '';
+  document.getElementById('video-overlay').classList.add('open');
+}
+function closeVideo() {
+  document.getElementById('video-overlay').classList.remove('open');
+  document.getElementById('video-frame').src = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
 </script>
 </body>
 </html>

@@ -60,6 +60,15 @@ footer{background:var(--black);padding:2rem;color:var(--gray-400);text-align:cen
 footer a{color:var(--gray-400);text-decoration:none;}
 footer a:hover{color:var(--white);}
 @media(max-width:600px){nav .nav-links{display:none;}.exercise{grid-template-columns:1fr;}}
+
+/* VIDEO MODAL */
+.video-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;align-items:center;justify-content:center;padding:1rem;}
+.video-overlay.open{display:flex;}
+.video-modal{background:#000;border-radius:2px;max-width:700px;width:100%;position:relative;}
+.video-modal-close{position:absolute;top:-40px;right:0;background:none;border:none;color:#fff;font-size:1.8rem;cursor:pointer;line-height:1;padding:0;}
+.video-modal-close:hover{opacity:0.6;}
+.video-modal iframe{width:100%;aspect-ratio:16/9;display:block;border:0;border-radius:2px;}
+.video-modal-title{color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem;}
 </style>
 </head>
 <body>
@@ -130,25 +139,25 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Snatch Warm-Up — Burgener Drill</p>
             <p class="ex-scheme">3 rounds — PVC or empty bar</p>
             <p class="ex-notes">Down and finish, elbows high and outside, muscle snatch, snatch lands. Standard warm-up every session.</p>
-            <a class="ex-video" href="https://youtu.be/iaQB7tOhbRA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('iaQB7tOhbRA', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Snatch Pull</p>
             <p class="ex-scheme">4 × 4 @ 95% of snatch</p>
             <p class="ex-notes">Bar stays close, big hip extension. Don't pull with arms — this is a leg and hip drill. Slow pull from floor to knee, then accelerate.</p>
-            <a class="ex-video" href="https://youtu.be/G1QygZ3Kd3w" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('G1QygZ3Kd3w', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Snatch (full squat)</p>
             <p class="ex-scheme">6 × 2 @ current week % — 3 min rest</p>
             <p class="ex-notes">Build to working weight through 3 warm-up sets. Every rep should look identical. Record a set each session for technique review.</p>
-            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('1Lv1IyigIUY', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Overhead Squat</p>
             <p class="ex-scheme">4 × 4 @ 60% snatch — pause 2 sec at bottom</p>
             <p class="ex-notes">Strengthens the receiving position. Wide grip, active shoulders pressing up into the bar. Pause exposes any instability.</p>
-            <a class="ex-video" href="https://youtu.be/m_fvfJi94D8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('m_fvfJi94D8', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="session-note">Phase 1 priority: positions, not weight. If a lift looks wrong on video, drop 5% and repeat.</div>
         </div>
@@ -168,25 +177,25 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Clean Pull</p>
             <p class="ex-scheme">4 × 4 @ 95% of clean</p>
             <p class="ex-notes">Same hip extension pattern as snatch pull but with clean grip. Lats engaged, bar brushes thighs, jump and shrug.</p>
-            <a class="ex-video" href="https://youtu.be/xx8WkFrST2Y" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('xx8WkFrST2Y', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Clean & Jerk (full squat clean)</p>
             <p class="ex-scheme">6 × 2 @ current week % — 3 min rest</p>
             <p class="ex-notes">Full squat receive, stand, then jerk. Each complex counts as one rep. Don't rush the jerk — reset your dip position first.</p>
-            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('bNCXgyosXlc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Push Press</p>
             <p class="ex-scheme">4 × 4 @ 70% C&J</p>
             <p class="ex-notes">Dip drive, press overhead. Builds jerk lockout strength. Keep torso vertical during the dip — don't fold forward.</p>
-            <a class="ex-video" href="https://youtu.be/yklSQG1_Ovc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('yklSQG1_Ovc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Front Squat</p>
             <p class="ex-scheme">3 × 5 @ 80% clean</p>
             <p class="ex-notes">High elbows, upright torso. The front squat is what limits your clean — strengthen it directly.</p>
-            <a class="ex-video" href="https://youtu.be/Q1R0_CbgHpc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('Q1R0_CbgHpc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
         </div>
       </div>
@@ -205,19 +214,19 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Back Squat</p>
             <p class="ex-scheme">3 × 5 @ increasing weekly (see table) — 3 min rest</p>
             <p class="ex-notes">Full depth, bar on traps, knees tracking toes. The squat is the engine of both lifts — treat it seriously.</p>
-            <a class="ex-video" href="https://youtu.be/Akd5xmZlsvg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('Akd5xmZlsvg', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Snatch (moderate — 70% max)</p>
             <p class="ex-scheme">4 × 2 — technique focus, not effort</p>
             <p class="ex-notes">After squatting, the lifts will feel different. This is good — trains you to lift when fatigued.</p>
-            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('1Lv1IyigIUY', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Clean & Jerk (moderate — 70% max)</p>
             <p class="ex-scheme">4 × 1 — long rest between</p>
             <p class="ex-notes">Singles only on Session C. Quality over quantity. Reset fully between each attempt.</p>
-            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('bNCXgyosXlc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
         </div>
       </div>
@@ -249,25 +258,25 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Snatch Pull</p>
             <p class="ex-scheme">3 × 3 @ 100% snatch (heavier than the lift)</p>
             <p class="ex-notes">Overloading the pull pattern. You're training the body to create more force than the snatch requires.</p>
-            <a class="ex-video" href="https://youtu.be/G1QygZ3Kd3w" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('G1QygZ3Kd3w', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Snatch — Working Sets</p>
             <p class="ex-scheme">5 × 2 @ week % — 3 min rest</p>
             <p class="ex-notes">Sets reduce from Phase 1 but intensity rises. Every rep at this weight should be near-maximal effort.</p>
-            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('1Lv1IyigIUY', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Heavy Single (Weeks 6–7 only)</p>
             <p class="ex-scheme">Build to 90–92% — 1 attempt</p>
             <p class="ex-notes">After your working sets. Not a max effort — a heavy, confident single. If the set felt off, skip the single today.</p>
-            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('1Lv1IyigIUY', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Overhead Squat</p>
             <p class="ex-scheme">3 × 3 @ 70% snatch</p>
             <p class="ex-notes">Reduced from Phase 1 but kept to maintain receiving position strength.</p>
-            <a class="ex-video" href="https://youtu.be/m_fvfJi94D8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('m_fvfJi94D8', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
         </div>
       </div>
@@ -284,25 +293,25 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Clean Pull</p>
             <p class="ex-scheme">3 × 3 @ 100% clean</p>
             <p class="ex-notes">Controlled first pull, explosive hip extension. The pull is where speed and height come from.</p>
-            <a class="ex-video" href="https://youtu.be/xx8WkFrST2Y" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('xx8WkFrST2Y', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Clean & Jerk — Working Sets</p>
             <p class="ex-scheme">5 × 1+1 @ week % — 3 min rest</p>
             <p class="ex-notes">1 clean + 1 jerk per set. Stand with the clean, regroup, then dip and drive the jerk. Don't rush the jerk after a heavy clean.</p>
-            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('bNCXgyosXlc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Split Jerk Technique Drill</p>
             <p class="ex-scheme">3 × 4 @ 70% — pause in split for 2 sec</p>
             <p class="ex-notes">Pause in split position to check: front knee over ankle, back knee slightly bent, torso upright, arms locked. Fix any wobbles here.</p>
-            <a class="ex-video" href="https://youtu.be/2GPA-cjUFnA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('2GPA-cjUFnA', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Front Squat</p>
             <p class="ex-scheme">4 × 3 @ 85% clean — 3 min rest</p>
             <p class="ex-notes">Heavier than Phase 1. Work the clean receiving position under real load.</p>
-            <a class="ex-video" href="https://youtu.be/Q1R0_CbgHpc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('Q1R0_CbgHpc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
         </div>
       </div>
@@ -334,19 +343,19 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Snatch — Warm Up to Working Weight</p>
             <p class="ex-scheme">Warm up sets: 50% × 3, 60% × 2, 70% × 1, 80% × 1 — then 3 × 1 @ 90–95%</p>
             <p class="ex-notes">Each single is performed with full intent. 4 min rest between singles. The bar should feel fast — if it feels slow, stop.</p>
-            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('1Lv1IyigIUY', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Clean & Jerk — Same Protocol</p>
             <p class="ex-scheme">3 × 1 @ 90–95% — 4 min rest</p>
             <p class="ex-notes">Separate session from snatch. Never attempt max snatch and max C&J in the same session during peaking.</p>
-            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('bNCXgyosXlc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Back Squat</p>
             <p class="ex-scheme">2 × 2 @ 85% — keep strength topped up</p>
             <p class="ex-notes">Reduced volume. Just enough to maintain leg strength going into the PR weeks.</p>
-            <a class="ex-video" href="https://youtu.be/Akd5xmZlsvg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('Akd5xmZlsvg', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
         </div>
       </div>
@@ -363,19 +372,19 @@ footer a:hover{color:var(--white);}
             <p class="ex-name">Warm-Up (30 min)</p>
             <p class="ex-scheme">Mobility → light singles building to 85%</p>
             <p class="ex-notes">Spend extra time warming up today. You want your first heavy single to feel like a medium effort. Never rush to the heavy weight.</p>
-            <a class="ex-video" href="https://youtu.be/iaQB7tOhbRA" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('iaQB7tOhbRA', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Snatch — PR Attempt</p>
             <p class="ex-scheme">90% → 95% → PR attempt (100%+). Max 3 attempts above 95%.</p>
             <p class="ex-notes">After a successful lift, add 1–2kg only. After a miss, try the same weight again. Never add weight after a miss.</p>
-            <a class="ex-video" href="https://youtu.be/1Lv1IyigIUY" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('1Lv1IyigIUY', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="exercise"><div>
             <p class="ex-name">Clean & Jerk — PR Attempt (separate day)</p>
             <p class="ex-scheme">Same protocol as snatch. 90% → 95% → PR.</p>
             <p class="ex-notes">The jerk is often where C&J PRs are lost. Be aggressive in the dip and drive — a tentative jerk rarely succeeds at max weights.</p>
-            <a class="ex-video" href="https://youtu.be/bNCXgyosXlc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+            <button class="ex-video" onclick="openVideo('bNCXgyosXlc', this.closest('.exercise').querySelector('.ex-name').textContent)"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</button>
           </div></div>
           <div class="session-note">🏆 Week 12 is the final PR day. Record all attempts on video. Book a coach to watch if possible — an external eye catches things you can't feel.</div>
         </div>
@@ -392,6 +401,27 @@ footer a:hover{color:var(--white);}
 <script>
 function showPhase(id,btn){document.querySelectorAll('.phase-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.phase-tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
 function toggleWeek(header){const content=header.nextElementSibling;const toggle=header.querySelector('.week-toggle');const isOpen=content.classList.contains('open');content.classList.toggle('open',!isOpen);toggle.classList.toggle('open',!isOpen);}
+</script>
+
+<!-- VIDEO MODAL -->
+<div class="video-overlay" id="video-overlay" onclick="if(event.target===this) closeVideo()">
+  <div class="video-modal">
+    <button class="video-modal-close" onclick="closeVideo()">×</button>
+    <p class="video-modal-title" id="video-modal-title"></p>
+    <iframe id="video-frame" src="" title="Exercise demo video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+<script>
+function openVideo(id, title) {
+  document.getElementById('video-frame').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+  document.getElementById('video-modal-title').textContent = title || '';
+  document.getElementById('video-overlay').classList.add('open');
+}
+function closeVideo() {
+  document.getElementById('video-overlay').classList.remove('open');
+  document.getElementById('video-frame').src = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
 </script>
 </body>
 </html>
