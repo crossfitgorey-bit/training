@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strength Base | CrossFit Gorey</title>
+<style>
+:root{--black:#0a0a0a;--white:#ffffff;--gray-100:#f2f2f2;--gray-200:#e0e0e0;--gray-400:#999;--gray-600:#555;--gray-800:#222;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Inter,Arial,sans-serif;background:var(--gray-100);color:var(--gray-800);line-height:1.6;}
+nav{background:var(--black);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;border-bottom:2px solid #222;}
+.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none;}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{font-size:.75rem;font-weight:500;color:var(--gray-400);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;}
+.nav-links a:hover{color:var(--white);}
+.nav-badge{background:var(--white);color:var(--black);font-size:.7rem;font-weight:700;padding:5px 14px;border-radius:1px;letter-spacing:.08em;text-transform:uppercase;}
+.prog-hero{background:var(--black);padding:3rem 2rem 2.5rem;border-bottom:3px solid var(--white);}
+.prog-hero-inner{max-width:900px;margin:0 auto;}
+.back-link{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;color:var(--gray-400);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;}
+.back-link:hover{color:var(--white);}
+.prog-tag{font-size:.68rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.5rem;}
+.prog-title{font-family:'Arial Black',Arial,sans-serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:var(--white);text-transform:uppercase;letter-spacing:.04em;line-height:1.05;margin-bottom:1rem;}
+.prog-meta{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.prog-meta-item{font-size:.8rem;color:var(--gray-400);}
+.prog-meta-item strong{color:var(--white);display:block;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.2rem;}
+.prog-body{max-width:900px;margin:0 auto;padding:2.5rem 2rem;}
+.rpe-guide{background:var(--white);border:1px solid var(--gray-200);border-radius:2px;padding:1.25rem 1.5rem;margin-bottom:2rem;}
+.rpe-guide h3{font-family:'Arial Black',Arial,sans-serif;font-size:.82rem;font-weight:900;text-transform:uppercase;letter-spacing:.1em;color:var(--black);margin-bottom:.75rem;}
+.rpe-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.5rem;}
+.rpe-item{background:var(--gray-100);padding:.5rem .75rem;border-radius:1px;font-size:.78rem;}
+.rpe-item strong{color:var(--black);display:block;font-size:.72rem;font-weight:700;}
+.phase-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem;}
+.phase-tab{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.5rem 1rem;border:1px solid var(--gray-200);background:var(--white);color:var(--gray-600);cursor:pointer;border-radius:1px;transition:all .2s;}
+.phase-tab.active,.phase-tab:hover{background:var(--black);color:var(--white);border-color:var(--black);}
+.phase-section{display:none;}
+.phase-section.active{display:block;}
+.phase-header{background:var(--black);color:var(--white);padding:1.25rem 1.5rem;border-radius:2px;margin-bottom:1.5rem;}
+.phase-header h2{font-family:'Arial Black',Arial,sans-serif;font-size:1.1rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem;}
+.phase-header p{font-size:.83rem;color:var(--gray-400);line-height:1.6;}
+.week-block{background:var(--white);border:1px solid var(--gray-200);border-radius:2px;margin-bottom:1.5rem;overflow:hidden;}
+.week-header{padding:1rem 1.5rem;border-bottom:1px solid var(--gray-200);display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none;}
+.week-header h3{font-family:'Arial Black',Arial,sans-serif;font-size:.95rem;font-weight:900;text-transform:uppercase;letter-spacing:.05em;color:var(--black);}
+.week-toggle{font-size:1.2rem;color:var(--gray-400);transition:transform .2s;}
+.week-toggle.open{transform:rotate(180deg);}
+.week-content{display:none;padding:1.5rem;}
+.week-content.open{display:block;}
+.session{margin-bottom:1.75rem;}
+.session:last-child{margin-bottom:0;}
+.session-label{font-size:.65rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-400);margin-bottom:.4rem;}
+.session-title{font-family:'Arial Black',Arial,sans-serif;font-size:1rem;font-weight:900;color:var(--black);text-transform:uppercase;letter-spacing:.04em;margin-bottom:1rem;padding-bottom:.5rem;border-bottom:2px solid var(--black);}
+.exercise{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:start;padding:.9rem 0;border-bottom:1px solid var(--gray-100);}
+.exercise:last-child{border-bottom:none;}
+.ex-name{font-size:.9rem;font-weight:700;color:var(--black);margin-bottom:.2rem;}
+.ex-scheme{font-size:.82rem;color:var(--gray-600);margin-bottom:.3rem;}
+.ex-notes{font-size:.78rem;color:var(--gray-400);font-style:italic;line-height:1.5;}
+.ex-video{display:inline-flex;align-items:center;gap:.35rem;font-size:.7rem;font-weight:700;color:var(--black);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;background:var(--gray-100);border:1px solid var(--gray-200);padding:.35rem .75rem;border-radius:1px;white-space:nowrap;margin-top:.4rem;transition:background .2s;}
+.ex-video:hover{background:var(--black);color:var(--white);}
+.ex-video svg{width:14px;height:14px;flex-shrink:0;}
+.session-note{background:var(--gray-100);border-left:3px solid var(--black);padding:.75rem 1rem;font-size:.82rem;color:var(--gray-600);margin-top:1rem;border-radius:0 2px 2px 0;}
+.prog-table{width:100%;border-collapse:collapse;font-size:.82rem;margin:1rem 0;}
+.prog-table th{background:var(--black);color:var(--white);padding:.5rem .75rem;text-align:left;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;}
+.prog-table td{padding:.5rem .75rem;border-bottom:1px solid var(--gray-100);}
+.prog-table tr:last-child td{border-bottom:none;}
+footer{background:var(--black);padding:2rem;color:var(--gray-400);text-align:center;font-size:.78rem;margin-top:3rem;}
+footer a{color:var(--gray-400);text-decoration:none;}
+footer a:hover{color:var(--white);}
+@media(max-width:600px){nav .nav-links{display:none;}.exercise{grid-template-columns:1fr;}.rpe-grid{grid-template-columns:1fr 1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">
+    <svg viewBox="0 0 180 52" height="40" xmlns="http://www.w3.org/2000/svg">
+      <text x="0" y="32" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="28" fill="white" textLength="152" lengthAdjust="spacingAndGlyphs">CrossFit</text>
+      <text x="156" y="18" font-family="Arial,sans-serif" font-size="11" fill="white">®</text>
+      <rect x="0" y="37" width="152" height="15" fill="white"/>
+      <text x="76" y="49" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="10" fill="black" text-anchor="middle" letter-spacing="3">GOREY</text>
+    </svg>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html#programs">Programs</a></li>
+    <li><a href="index.html#running">Running</a></li>
+    <li><a href="index.html#injury">Injury</a></li>
+    <li><a href="#" class="nav-badge">Member Login</a></li>
+  </ul>
+</nav>
+
+<div class="prog-hero">
+  <div class="prog-hero-inner">
+    <a href="index.html" class="back-link">← Back to all programs</a>
+    <p class="prog-tag">Powerlifting · Strength</p>
+    <h1 class="prog-title">Strength Base Program</h1>
+    <div class="prog-meta">
+      <div class="prog-meta-item"><strong>Duration</strong>12 Weeks</div>
+      <div class="prog-meta-item"><strong>Sessions/Week</strong>3 Sessions</div>
+      <div class="prog-meta-item"><strong>Session Length</strong>50–70 Min</div>
+      <div class="prog-meta-item"><strong>Level</strong>All Levels</div>
+      <div class="prog-meta-item"><strong>Days</strong>Mon / Wed / Fri</div>
+    </div>
+  </div>
+</div>
+
+<div class="prog-body">
+
+  <div class="rpe-guide">
+    <h3>RPE Scale — How Hard Should Each Set Feel?</h3>
+    <div class="rpe-grid">
+      <div class="rpe-item"><strong>RPE 6</strong>Could do 4+ more reps</div>
+      <div class="rpe-item"><strong>RPE 7</strong>Could do 3 more reps</div>
+      <div class="rpe-item"><strong>RPE 8</strong>Could do 2 more reps</div>
+      <div class="rpe-item"><strong>RPE 9</strong>Could do 1 more rep</div>
+      <div class="rpe-item"><strong>RPE 9.5</strong>Might have 1 more — not sure</div>
+      <div class="rpe-item"><strong>RPE 10</strong>Max effort — could not do more</div>
+    </div>
+  </div>
+
+  <div class="phase-tabs">
+    <button class="phase-tab active" onclick="showPhase('p1',this)">Phase 1 — Accumulation (Wks 1–4)</button>
+    <button class="phase-tab" onclick="showPhase('p2',this)">Phase 2 — Intensification (Wks 5–8)</button>
+    <button class="phase-tab" onclick="showPhase('p3',this)">Phase 3 — Peaking (Wks 9–12)</button>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase-section active" id="p1">
+    <div class="phase-header">
+      <h2>Phase 1 — Accumulation (Weeks 1–4)</h2>
+      <p>Higher volume, moderate intensity. All main lifts at RPE 7–8. 4 sets of 5 reps. Build work capacity and ingrain technique before intensity rises. Accessory volume is high in this phase.</p>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Monday — Squat Heavy / Bench Moderate</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">Monday Session</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Back Squat — Main Lift</p>
+            <p class="ex-scheme">4 × 5 @ RPE 8 — 3 min rest between sets</p>
+            <p class="ex-notes">Find a weight that leaves you feeling like you had 2 reps left on the last set. If it felt easy, add 2.5–5kg. If hard, stay the same next week.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=ultWZbUMPL8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Paused Squat</p>
+            <p class="ex-scheme">3 × 3 @ 70% of today's squat — 3 sec pause at bottom</p>
+            <p class="ex-notes">Pause kills the stretch reflex — you must squat out of the hole under your own power. Exposes and strengthens weak points.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=wyox-W0HxRg" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Bench Press — Secondary</p>
+            <p class="ex-scheme">3 × 8 @ RPE 7 — 2 min rest</p>
+            <p class="ex-notes">Moderate effort — this is not the main bench day. Maintain tightness in the upper back. Bar touches lower chest.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Romanian Deadlift</p>
+            <p class="ex-scheme">3 × 10 @ moderate weight — 90 sec rest</p>
+            <p class="ex-notes">Hinge at hips, soft knees, bar stays close to legs. Feel the hamstring stretch. Builds posterior chain for both squat and deadlift.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=JCXUYuzwNrM" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Lat Pulldown or Chest-Supported Row</p>
+            <p class="ex-scheme">3 × 12 — 60 sec rest</p>
+            <p class="ex-notes">Upper back pulling accessory. Balances the pressing volume and protects the shoulders long-term.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="session-note">Total session time: ~65 min. If you're short on time, drop the last accessory — never cut the main lifts short.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Wednesday — Bench Heavy / Deadlift Moderate</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">Wednesday Session</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Bench Press — Main Lift</p>
+            <p class="ex-scheme">4 × 5 @ RPE 8 — 3 min rest</p>
+            <p class="ex-notes">Shoulder blades retracted and depressed, feet flat on floor, slight arch in lower back. The bench is a full-body lift — use leg drive.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Close Grip Bench Press</p>
+            <p class="ex-scheme">3 × 8 @ 75% of today's bench</p>
+            <p class="ex-notes">Hands shoulder-width. Builds tricep lockout strength — the most common sticking point in the bench press.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=nEF0bv2FW94" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Deadlift — Secondary</p>
+            <p class="ex-scheme">3 × 5 @ RPE 7 — 3 min rest</p>
+            <p class="ex-notes">Not max effort today — this is a secondary day. Focus on set-up: hips back, lats engaged, bar over mid foot. Pull the floor apart with your feet.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Tricep Pushdown (cable or band)</p>
+            <p class="ex-scheme">3 × 15 — 60 sec rest</p>
+            <p class="ex-notes">Direct tricep work. Elbows stay tucked at sides. Full extension at the bottom.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=kiuVA0gs3EI" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Face Pull</p>
+            <p class="ex-scheme">3 × 15 — 60 sec rest</p>
+            <p class="ex-notes">Rear delt and external rotation work. Essential shoulder health for heavy pressers. Pull to forehead, elbows high.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=rep-qVOkqgk" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Friday — Deadlift Heavy / Squat Moderate</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">Friday Session</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Deadlift — Main Lift</p>
+            <p class="ex-scheme">4 × 5 @ RPE 8 — 3 min rest</p>
+            <p class="ex-notes">Choose conventional or sumo — whichever you plan to compete or test with. Be consistent. Build to working weight over 3–4 warm-up sets.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Deficit Deadlift</p>
+            <p class="ex-scheme">3 × 4 @ 70% of today's deadlift — stand on 25kg plate</p>
+            <p class="ex-notes">Greater range of motion — strengthens the weakest part of the pull (off the floor). Improves starting position and leg drive.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=Mj0BQEF0vhc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Back Squat — Secondary</p>
+            <p class="ex-scheme">3 × 5 @ RPE 7 — 2 min rest</p>
+            <p class="ex-notes">Lighter than Monday. Keep the pattern consistent. These reps should feel smooth and controlled.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=ultWZbUMPL8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Barbell Row</p>
+            <p class="ex-scheme">3 × 8 — 90 sec rest</p>
+            <p class="ex-notes">Overhand grip, hinge to ~45°, row bar to lower chest. Builds upper back thickness — key for a strong deadlift lockout and bench arch.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=FWJR5Ve8bnQ" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Leg Press or Leg Extension</p>
+            <p class="ex-scheme">3 × 12 — 60 sec rest</p>
+            <p class="ex-notes">Quad accessory. Takes load off the spine while still building leg volume. Use full range of motion.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=IZxyjW7MPJQ" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="session-note">Weeks 1–4: Track every working weight. You should be able to add 2.5–5kg to each main lift every week in Phase 1.</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end phase 1 -->
+
+  <!-- PHASE 2 -->
+  <div class="phase-section" id="p2">
+    <div class="phase-header">
+      <h2>Phase 2 — Intensification (Weeks 5–8)</h2>
+      <p>Volume drops, intensity rises. Main lifts move to RPE 8–9. Sets of 3 replace sets of 5. Accessories reduce by ~30%. You should feel stronger — the Phase 1 volume is paying off.</p>
+    </div>
+    <table class="prog-table">
+      <tr><th>Week</th><th>Main Lift Sets×Reps</th><th>Target RPE</th><th>Accessory Sets</th></tr>
+      <tr><td>Week 5</td><td>4×4</td><td>RPE 8</td><td>3 accessories, 3×8</td></tr>
+      <tr><td>Week 6</td><td>4×3</td><td>RPE 8.5</td><td>3 accessories, 3×6</td></tr>
+      <tr><td>Week 7</td><td>4×2</td><td>RPE 9</td><td>2 accessories, 3×5</td></tr>
+      <tr><td>Week 8</td><td>3×3</td><td>RPE 7 (deload)</td><td>2 accessories, 2×8</td></tr>
+    </table>
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Monday (Weeks 5–8) — Squat Intensity</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">Monday — Squat Focus (Intensification)</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Back Squat — Main Lift</p>
+            <p class="ex-scheme">Per week table above — building toward heavy triples then doubles</p>
+            <p class="ex-notes">You will feel like you could do more reps at these weights — that's correct. The low rep ranges train the nervous system, not just the muscles.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=ultWZbUMPL8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Box Squat</p>
+            <p class="ex-scheme">3 × 3 @ 75% of main lift</p>
+            <p class="ex-notes">Sit back onto a box just below parallel. Pause briefly, then drive up explosively. Trains the squat out of the hole — the hardest part at max weights.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=S_nGFtAkM0c" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Bench Press (secondary)</p>
+            <p class="ex-scheme">3 × 5 @ RPE 7</p>
+            <p class="ex-notes">Maintained but lighter. Don't push this on squat day — save energy for the main work.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Leg Curl</p>
+            <p class="ex-scheme">3 × 10</p>
+            <p class="ex-notes">Hamstring health work. Controlled lowering (3 sec). The hamstrings decelerate the knee — protect them as weights get heavier.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=1Tq3QdYUuHs" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Wednesday (Weeks 5–8) — Bench Intensity</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">Wednesday — Bench Focus (Intensification)</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Bench Press — Main Lift</p>
+            <p class="ex-scheme">Per week table — building to heavy doubles</p>
+            <p class="ex-notes">Increase the intensity of your setup as weights rise. White-knuckle the bar, squeeze the lats, create full body tension before unracking.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=vcBig73ojpE" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Paused Bench Press</p>
+            <p class="ex-scheme">3 × 3 @ 75% — 2 sec pause on chest</p>
+            <p class="ex-notes">Bar stays on chest for a full 2-count. No bouncing. Builds raw pressing strength and competition-legal technique.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=cXbSJHtjrQQ" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Deadlift (secondary)</p>
+            <p class="ex-scheme">3 × 3 @ RPE 7</p>
+            <p class="ex-notes">Keep the pattern sharp. Don't max out on secondary deadlift day — it will cost you on Friday.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end phase 2 -->
+
+  <!-- PHASE 3 -->
+  <div class="phase-section" id="p3">
+    <div class="phase-header">
+      <h2>Phase 3 — Peaking (Weeks 9–12)</h2>
+      <p>Volume drops to its lowest. Intensity peaks at RPE 9–9.5. Heavy singles appear in weeks 10 and 12. Week 11 is a full deload. This phase is where new 1RMs are set.</p>
+    </div>
+    <table class="prog-table">
+      <tr><th>Week</th><th>Focus</th><th>Main Sets×Reps</th><th>RPE</th></tr>
+      <tr><td>Week 9</td><td>Heavy triples</td><td>3×3</td><td>RPE 9</td></tr>
+      <tr><td>Week 10</td><td>Heavy singles / PR test</td><td>Build to 1RM</td><td>RPE 9.5–10</td></tr>
+      <tr><td>Week 11</td><td>Full deload</td><td>3×5 @ 60%</td><td>RPE 6</td></tr>
+      <tr><td>Week 12</td><td>Final PR test</td><td>Build to 1RM</td><td>RPE 10</td></tr>
+    </table>
+    <div class="week-block">
+      <div class="week-header" onclick="toggleWeek(this)">
+        <h3>Weeks 9–10 — Building to Singles</h3>
+        <span class="week-toggle">▾</span>
+      </div>
+      <div class="week-content open">
+        <div class="session">
+          <p class="session-title">All sessions — Peaking Template</p>
+          <div class="exercise"><div>
+            <p class="ex-name">Squat / Bench / Deadlift — Warm-Up Ladder</p>
+            <p class="ex-scheme">50% × 5 → 60% × 3 → 70% × 2 → 80% × 1 → 87% × 1 → Working weight</p>
+            <p class="ex-notes">Thorough warm-up is even more important when weights are heavy. Never rush to the working weight.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=ultWZbUMPL8" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Week 10 & 12 — 1RM Attempt Protocol</p>
+            <p class="ex-scheme">90% × 1 → 95% × 1 → 100%+ × 1 attempt per lift</p>
+            <p class="ex-notes">After a made lift: add 1–2.5kg. After a miss: don't retry heavier — attempt same weight or call it. Limit max attempts to 3 per lift per day.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=op9kVnSso6Q" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="exercise"><div>
+            <p class="ex-name">Accessories (weeks 9–10)</p>
+            <p class="ex-scheme">1–2 light accessory movements only — 2×8 @ easy weight</p>
+            <p class="ex-notes">Accessories exist to maintain muscle, not accumulate fatigue. Keep them brief and well within your ability in peaking weeks.</p>
+            <a class="ex-video" href="https://www.youtube.com/watch?v=CAwf7n6Luuc" target="_blank"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 3H4.4A1.4 1.4 0 0 0 3 4.4v15.2A1.4 1.4 0 0 0 4.4 21h15.2a1.4 1.4 0 0 0 1.4-1.4V4.4A1.4 1.4 0 0 0 19.6 3zm-9.1 12.5V8.5l6.5 3.5-6.5 3.5z"/></svg> Watch Demo</a>
+          </div></div>
+          <div class="session-note">🏆 Week 12: Record all 3 lifts on video. Log your total (Squat + Bench + Deadlift). This is your baseline for the next cycle — run Phase 1 again at slightly higher intensities to continue progressing.</div>
+        </div>
+      </div>
+    </div>
+  </div><!-- end phase 3 -->
+
+</div>
+
+<footer>
+  <p>CrossFit Gorey Members Area · <a href="index.html">← All Programs</a> · Gorey, Co. Wexford</p>
+</footer>
+
+<script>
+function showPhase(id,btn){document.querySelectorAll('.phase-section').forEach(s=>s.classList.remove('active'));document.querySelectorAll('.phase-tab').forEach(t=>t.classList.remove('active'));document.getElementById(id).classList.add('active');btn.classList.add('active');}
+function toggleWeek(header){const content=header.nextElementSibling;const toggle=header.querySelector('.week-toggle');const isOpen=content.classList.contains('open');content.classList.toggle('open',!isOpen);toggle.classList.toggle('open',!isOpen);}
+</script>
+</body>
+</html>
